@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghalvera — Whether a record can be trusted</title>
+<meta name="description" content="A security research lab. Security rests on records nobody tests. We break in on purpose, then find out what the log actually says.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Ghalvera">
+<meta property="og:description" content="Could anyone have proven it happened?">
+<meta property="og:type" content="website">
+</head>
+<body>
+
+<header class="bar">
+  <div class="shell">
+    <a class="brand" href="/">ghalvera<span class="glyph">_</span></a>
+    <nav aria-label="Primary">
+      <a href="#thesis">thesis</a>
+      <a href="#work">work</a>
+      <a href="#finding">finding</a>
+      <a href="#tools" data-opt>tools</a>
+      <a href="#rules" data-opt>rules</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="k">Security research lab <b>//</b> Madrid</p>
+        <h1>Every check was green.<br><span class="x">Nothing was being recorded.</span></h1>
+        <p class="lede">
+          Every security claim rests on a record — an audit log, a trace, a
+          telemetry stream. Those records are assumed to be true. We cross
+          boundaries on purpose so we know exactly what happened, then find
+          out whether the evidence agrees.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#work">Current work</a>
+          <a class="btn q" href="#thesis">What we study</a>
+        </div>
+      </div>
+
+      <figure class="panel">
+        <div class="panel-head">
+          <span>evidence chain <span style="color:var(--ink-3)">//</span> live</span>
+          <span class="status ok" id="chain-status"><i aria-hidden="true"></i><span id="chain-word">verified</span></span>
+        </div>
+        <canvas id="chain" width="760" height="520" role="img"
+                aria-label="A hash-linked chain of evidence records. Records append over time; periodically one is altered, and every record after it turns red because the chain no longer verifies."></canvas>
+        <dl class="panel-foot">
+          <div><dt>records</dt><dd id="c-n">0</dd></div>
+          <div><dt>head</dt><dd id="c-head">—</dd></div>
+          <div><dt>broken at</dt><dd id="c-break" class="bad">none</dd></div>
+        </dl>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==================== THESIS ==================== -->
+  <section class="sec" id="thesis">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="k">01 <b>//</b> Thesis</p>
+        <h2>We break in on purpose. Then we catch the <span class="x">log lying</span>.</h2>
+        <p>
+          Exploitation research publishes the escape and moves on. Forensics
+          studies logs from attacks nobody ran, and has to invent its ground
+          truth. Running both halves means the ground truth is real — we know
+          exactly what happened, because we did it. Which is the only way to
+          prove a record wrong.
+        </p>
+      </div>
+
+      <div class="loop">
+        <div class="node">
+          <span class="n">01</span>
+          <h3>See</h3>
+          <p>
+            Did the instrument capture the event at all? The sharpest case is
+            a subsystem that is configured, running, reporting healthy — and
+            recording nothing. Every dashboard green, no evidence produced.
+          </p>
+        </div>
+        <div class="node">
+          <span class="n">02</span>
+          <h3>Attribute</h3>
+          <p>
+            Does the record name the right actor? Namespaces, sudo, container
+            runtimes, delegation chains. The failure mode is the outermost
+            process wearing the innermost one's name — and it is invisible
+            unless you already know what really ran.
+          </p>
+        </div>
+        <div class="node">
+          <span class="n">03</span>
+          <h3>Retrieve</h3>
+          <p>
+            Can the record be recovered whole? A record that cannot be
+            retrieved is a record that does not exist — and retrieval fails
+            quietly far more often than it fails loudly. What the record
+            missed tells us where to look next.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WORK ==================== -->
+  <section class="sec" id="work">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="k">02 <b>//</b> Work</p>
+        <h2>Studies, with their limits stated</h2>
+        <p>
+          Every study names one question, one substrate, and what it failed to
+          establish. Nothing here targets a system we do not own.
+        </p>
+      </div>
+
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr><th>ref</th><th>question</th><th>repository</th><th>state</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="id">S-001</td>
+              <td>
+                Security decision invariance
+                <span class="sub">When the transient process-to-action link is unavailable, does an attribution stay defensible — or should the method abstain? Calibrated against an independent action ledger. Limit: one Fedora ARM64 host, one scenario, one transformation.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">security-decision-invariance</span> <span class="priv-tag">private</span><a class="readmore" href="studies/decision-invariance.html">Read →</a></td>
+              <td><span class="pill live">active</span></td>
+            </tr>
+            <tr>
+              <td class="id">R-001</td>
+              <td>
+                Range — reproducible target environment
+                <span class="sub">A guest defined as code that starts from a known state, receives exactly one change, and reverses every modification on every exit path. A failed teardown marks the guest unknown rather than continuing quietly.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">ghalvera/range</span> <span class="priv-tag">private</span></td>
+              <td><span class="pill ok">built</span></td>
+            </tr>
+            <tr>
+              <td class="id">R-002</td>
+              <td>
+                ausearch reads stdin, not the audit log
+                <span class="sub">The canonical invocation returns “no matches” and <b style="color:var(--crossed);font-weight:400">exits 0</b> on a host where 192 matching records exist. Cause isolated and confirmed against the tool's own documentation. Limit: audit 4.1.4, one guest, one kernel.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">ghalvera/range</span> <span class="priv-tag">private</span><a class="readmore" href="studies/audit-retrieval.html">Read →</a></td>
+              <td><span class="pill ok">solved</span></td>
+            </tr>
+            <tr>
+              <td class="id">S-002</td>
+              <td>
+                Container boundary under one misconfiguration
+                <span class="sub">Which isolation guarantees survive a specific named misconfiguration — and would standard telemetry have shown the crossing? The second half is the part nobody publishes.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">—</span></td>
+              <td><span class="pill">proposed</span></td>
+            </tr>
+            <tr>
+              <td class="id">S-003</td>
+              <td>
+                Fuzzing campaign provenance
+                <span class="sub">What can you ask across campaigns that nobody asks within one? Immutable inputs, recorded provenance, visible loss, longitudinal comparison.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">—</span></td>
+              <td><span class="pill">proposed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FINDING ==================== -->
+  <section class="sec" id="finding">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="k">03 <b>//</b> Finding R-002-01</p>
+        <h2>The tool said there was no evidence.<br>It was reading <span class="x">stdin.</span></h2>
+        <p>
+          <code>ausearch -k &lt;key&gt;</code> — the canonical documented
+          invocation — returns “no matches” and exits 0 on a host where the
+          records exist. It is not reading the audit log. It is reading stdin,
+          hitting EOF, and reporting an absence of matches rather than an
+          absence of input.
+        </p>
+      </div>
+
+      <div class="tbl" style="margin-bottom:1.4rem">
+        <table>
+          <thead><tr><th>invocation</th><th>records</th></tr></thead>
+          <tbody>
+            <tr><td>ausearch -k &lt;key&gt;</td><td class="r">0 — “no matches”, exit 0</td></tr>
+            <tr><td>ausearch -m SYSCALL</td><td class="r">0</td></tr>
+            <tr><td>aureport --summary</td><td class="r">time range 1970 – 1970</td></tr>
+            <tr><td>ausearch <b>--input-logs</b> -k &lt;key&gt;</td><td class="g">186</td></tr>
+            <tr><td>ausearch <b>-if &lt;log&gt;</b> -m SYSCALL</td><td class="g">771</td></tr>
+            <tr><td>aureport <b>--input-logs</b></td><td class="g">08/15 – 08/17/2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tools">
+        <div class="tool">
+          <h3>why it matters</h3>
+          <p>
+            No error. No warning. <b>Exit status 0.</b> Meanwhile
+            <code>auditctl -s</code> reports <em style="color:var(--held);font-style:normal">enabled 1</em>
+            and <em style="color:var(--held);font-style:normal">lost 0</em> — the
+            subsystem genuinely is healthy, which corroborates the wrong
+            conclusion.
+          </p>
+          <p>
+            An investigator concluding <em>no execve was recorded, therefore no
+            process ran</em> would be wrong, with every available diagnostic
+            agreeing. This is the difference between absence of evidence and
+            absence of <em style="color:var(--crossed);font-style:normal">retrieval</em>,
+            and the tool does not distinguish them for you.
+          </p>
+          <p class="limits">
+            <b>Scope:</b> one Fedora 44 guest, kernel 6.19.10 aarch64, two runs.
+            Nothing here is claimed for x86-64, other releases, or bare metal.
+          </p>
+        </div>
+        <div class="tool">
+          <h3>the mechanism</h3>
+          <p>
+            From <code>man ausearch</code>: <em>“--input-logs — Use the log file
+            location from auditd.conf as input”</em>, and <em>“can also take
+            input from stdin”</em>. Reading the configured log is
+            <b style="color:var(--crossed);font-weight:400">opt-in</b>.
+          </p>
+          <p>
+            Three hypotheses were eliminated first — the distribution's
+            <code>never,task</code> rule, a missing <code>audit=1</code>, the
+            arch filter — plus clock skew, time windows and rotation. The
+            control that cracked it was the one that should have come first:
+            does the tool find <em>anything</em>?
+          </p>
+          <pre>ausearch -m SYSCALL        <span class="p">0</span>   not key-specific
+aureport time range     <span class="p">1970</span>   not ausearch-specific
+with --input-logs        <span class="o">771</span>   the log was always readable</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TOOLS ==================== -->
+  <section class="sec" id="tools">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="k">04 <b>//</b> Tools</p>
+        <h2>Instruments, and what they <span class="x">cannot</span> do</h2>
+        <p>
+          A tool that only documents its capabilities is marketing. Each of
+          these states the boundary of its own guarantee, and the test suites
+          assert those limits so they cannot quietly become false.
+        </p>
+      </div>
+
+      <div class="tools">
+        <div class="tool">
+          <h3>ledger</h3>
+          <p>
+            A tamper-evident append-only log. Every record commits to its
+            predecessor, so editing, deleting or reordering anything in the
+            middle of the chain invalidates everything after it. Appending to
+            an already-broken ledger is refused — otherwise corruption gets
+            buried under valid records and starts to look like history.
+          </p>
+          <pre><span class="p">$</span> ledger append '{"event":"guest booted"}'
+<span class="o">0	d25a985333997b97…</span>
+<span class="p">$</span> ledger verify
+<span class="o">OK    3 records, head 6e42047d0860…</span></pre>
+          <p class="limits">
+            <b>Does not:</b> detect truncation from the end, or a wholesale
+            rewrite by someone with write access. Both need an external anchor
+            — a head hash published where the adversary cannot reach it.
+            19 tests, including observed proofs of each detection and each
+            limit.
+          </p>
+        </div>
+
+        <div class="tool">
+          <h3>range</h3>
+          <p>
+            A scenario runner for owned guests. Stages a scenario, applies
+            exactly one change, captures evidence, and reverses everything —
+            on every exit path, including failure. Actions are recorded to a
+            ledger on the host, not by the system under observation, so the
+            record survives the thing it is watching.
+          </p>
+          <pre><span class="p">$</span> range/scenario.sh scenarios/audit-visibility
+<span class="o">run      range/runs/20260817T…-audit-visibility
+head     a7f3c19b04e2…</span></pre>
+          <p class="limits">
+            <b>Does not:</b> sandbox the host, verify the guest image's
+            provenance, or make any claim about systems it did not run on. A
+            teardown that fails marks the guest state unknown and fails the
+            run.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RULES ==================== -->
+  <section class="sec" id="rules">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="k">05 <b>//</b> Rules</p>
+        <h2>How this lab is allowed to operate</h2>
+      </div>
+
+      <div class="rules">
+        <div class="rule">
+          <span class="num">01</span>
+          <p><strong>Every target is owned or explicitly authorized.</strong> Offensive work exists to generate falsification pressure against our own claims. It is never pointed at a third party's systems.</p>
+        </div>
+        <div class="rule">
+          <span class="num">02</span>
+          <p><strong>An exploit is not a finding.</strong> A finding states what the record missed, the conditions under which it missed it, and what would have had to be true to catch it.</p>
+        </div>
+        <div class="rule">
+          <span class="num">03</span>
+          <p><strong>Loss must be visible.</strong> Anything dropped, filtered or approximated is counted and surfaced. Silent filtering is the defect; disclosed filtering is a feature.</p>
+        </div>
+        <div class="rule">
+          <span class="num">04</span>
+          <p><strong>You do not verify your own work.</strong> Whoever built it does not decide whether it works. If something was not run, the report says <em>not verified</em> — in those words.</p>
+        </div>
+        <div class="rule">
+          <span class="num">05</span>
+          <p><strong>Vulnerability findings follow coordinated disclosure.</strong> Nothing exploitable against a third party is published, and nothing is disclosed before the affected party has had a reasonable opportunity to respond.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell foot-grid">
+    <div>
+      <p class="k" style="margin-bottom:0.9rem">Ghalvera</p>
+      <p>
+        An independent security research laboratory working on the reliability
+        of evidence — whether the instrument saw it, whether the record names
+        the right actor, and whether it can be retrieved intact.
+      </p>
+      <p class="legal">Madrid <span style="color:var(--crossed)">//</span> 40.4168° N / 3.7038° W</p>
+    </div>
+    <div class="links">
+      <a href="https://joshuadefreitas.github.io">Joshua de Freitas</a>
+      <a href="https://github.com/joshuadefreitas">GitHub</a>
+      <a href="#work">Work</a>
+      <a href="#rules">Rules</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var canvas = document.getElementById("chain");
+  if (!canvas || !canvas.getContext) return;
+
+  var ctx = canvas.getContext("2d");
+  var elN = document.getElementById("c-n");
+  var elHead = document.getElementById("c-head");
+  var elBreak = document.getElementById("c-break");
+  var elStatus = document.getElementById("chain-status");
+  var elWord = document.getElementById("chain-word");
+
+  var size, dpr;
+  function fit() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = canvas.clientWidth || 700, h = canvas.clientHeight || 320;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    size = { w: w, h: h };
+  }
+  fit();
+  window.addEventListener("resize", function () { fit(); draw(); });
+
+  function token(n, f) {
+    var v = getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+    return v || f;
+  }
+
+  /* A deterministic stand-in for a hash. The site is not doing real
+     cryptography — it is depicting the ledger's actual behaviour, and the
+     digits need to be stable per record rather than random per frame. */
+  var seed = 0x9e3779b9;
+  function rnd() {
+    seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5;
+    return (seed >>> 0) / 4294967296;
+  }
+  function hex(n) {
+    var s = "";
+    for (var i = 0; i < n; i++) s += "0123456789abcdef"[Math.floor(rnd() * 16)];
+    return s;
+  }
+
+  var EVENTS = [
+    "guest booted", "audit rules loaded", "actor authorized",
+    "connect 127.0.0.1:18081", "execve /usr/bin/curl", "process exit 0",
+    "evidence captured", "teardown reversed", "rules unloaded",
+    "manifest sealed", "socket table sampled", "run sealed"
+  ];
+
+  var MAX = 9;
+  var records = [];
+  var brokenAt = -1;   // index of the altered record, -1 when intact
+  var tick = 0;
+
+  function append() {
+    var prev = records.length ? records[records.length - 1].hash : "0000000000000000";
+    records.push({
+      seq: (records.length ? records[records.length - 1].seq + 1 : 0),
+      hash: hex(16),
+      prev: prev,
+      label: EVENTS[Math.floor(rnd() * EVENTS.length)],
+      born: tick
+    });
+    if (records.length > MAX) {
+      records.shift();
+      if (brokenAt > -1) brokenAt--;
+      if (brokenAt < 0 && brokenAt !== -1) brokenAt = -1;
+    }
+  }
+
+  function report() {
+    elN.textContent = records.length;
+    var last = records[records.length - 1];
+    elHead.textContent = last ? last.hash.slice(0, 12) + "…" : "—";
+    if (brokenAt > -1 && records[brokenAt]) {
+      elBreak.textContent = "seq " + records[brokenAt].seq;
+      elStatus.className = "status bad";
+      elWord.textContent = "chain broken";
+    } else {
+      elBreak.textContent = "none";
+      elStatus.className = "status ok";
+      elWord.textContent = "verified";
+    }
+  }
+
+  function draw() {
+    var w = size.w, h = size.h;
+    var held = token("--held", "#7fa3b3");
+    var crossed = token("--crossed", "#d8453d");
+    var ink = token("--ink", "#e8e5df");
+    var ink3 = token("--ink-3", "#55534e");
+    var line = token("--line", "#16161a");
+
+    ctx.clearRect(0, 0, w, h);
+
+    var padX = 16, padY = 14;
+    var n = records.length;
+    if (!n) return;
+    var rowH = Math.min(34, (h - padY * 2) / MAX);
+    var boxH = rowH - 6;
+
+    ctx.font = "11px 'DM Mono', ui-monospace, Menlo, monospace";
+    ctx.textBaseline = "middle";
+
+    for (var i = 0; i < n; i++) {
+      var rec = records[i];
+      var y = padY + i * rowH;
+      var invalid = brokenAt > -1 && i >= brokenAt;
+      var col = invalid ? crossed : held;
+
+      // link from the previous record — the thing that actually breaks
+      if (i > 0) {
+        ctx.strokeStyle = invalid ? crossed : line;
+        ctx.lineWidth = invalid ? 1.4 : 1;
+        ctx.beginPath();
+        ctx.moveTo(padX + 7, y - 6);
+        ctx.lineTo(padX + 7, y + 3);
+        ctx.stroke();
+        if (invalid && i === brokenAt) {
+          // the snap
+          ctx.strokeStyle = crossed;
+          ctx.lineWidth = 1.4;
+          ctx.beginPath();
+          ctx.moveTo(padX + 2, y - 4); ctx.lineTo(padX + 12, y - 8);
+          ctx.moveTo(padX + 2, y + 1); ctx.lineTo(padX + 12, y - 3);
+          ctx.stroke();
+        }
+      }
+
+      // node
+      ctx.fillStyle = col;
+      ctx.globalAlpha = invalid ? 0.95 : 0.8;
+      ctx.beginPath();
+      ctx.arc(padX + 7, y + boxH / 2 - 4, 3.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      // seq
+      ctx.fillStyle = ink3;
+      ctx.fillText(String(rec.seq).padStart(3, "0"), padX + 20, y + boxH / 2 - 4);
+
+      // hash
+      ctx.fillStyle = invalid ? crossed : ink;
+      ctx.fillText(rec.hash, padX + 56, y + boxH / 2 - 4);
+
+      // label
+      ctx.fillStyle = invalid ? crossed : ink3;
+      var label = (invalid && i === brokenAt) ? "ALTERED — " + rec.label : rec.label;
+      ctx.fillText(label, padX + 205, y + boxH / 2 - 4);
+    }
+
+    // legend
+    ctx.fillStyle = ink3;
+    ctx.font = "9px 'DM Mono', ui-monospace, Menlo, monospace";
+    ctx.fillText("each record commits to the one above it", padX, h - 8);
+  }
+
+  var acc = 0, last = 0, running = false;
+
+  function step(dt) {
+    acc += dt;
+    if (acc < 620) return;
+    acc = 0;
+    tick++;
+
+    if (brokenAt > -1) {
+      // hold the broken state long enough to read, then repair
+      if (tick % 7 === 0) { brokenAt = -1; records = []; append(); append(); }
+    } else {
+      append();
+      // once the chain is full, occasionally alter a record in the middle
+      if (records.length >= MAX && rnd() < 0.28) {
+        brokenAt = 2 + Math.floor(rnd() * (MAX - 4));
+      }
+    }
+    report();
+  }
+
+  function frame(t) {
+    if (!last) last = t;
+    var dt = Math.min(t - last, 100); last = t;
+    step(dt);
+    draw();
+    if (running) requestAnimationFrame(frame);
+  }
+
+  function start() { if (running || reduced.matches || document.hidden) return; running = true; last = 0; requestAnimationFrame(frame); }
+  function stop() { running = false; }
+
+  // warm start — never an empty panel
+  for (var i = 0; i < MAX; i++) { append(); tick++; }
+  brokenAt = 4;
+  report();
+  draw();
+
+  if (!reduced.matches && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (e) { e[0].isIntersecting ? start() : stop(); }).observe(canvas);
+  } else if (!reduced.matches) { start(); }
+
+  document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
+})();
+</script>
+
+</body>
+</html>

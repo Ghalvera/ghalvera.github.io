@@ -1,0 +1,141 @@
+/* ============================================================================
+   Study detail pages
+
+   Extends the lab's stylesheet rather than replacing it — same true black,
+   same two semantic colours, same monospace. A study page is longer-form
+   than the index, so this file mostly buys back reading comfort: a narrower
+   measure, more air between blocks, and prose set in the sans face while
+   headings and data stay mono.
+   ========================================================================= */
+
+.study { padding-block: clamp(28px, 5vw, 52px) clamp(56px, 8vw, 96px); }
+
+.study .shell { max-width: 54rem; }
+
+/* breadcrumb ------------------------------------------------------------- */
+.crumb {
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+.crumb a { color: var(--ink-2); text-decoration: none; transition: color 0.2s var(--ease); }
+.crumb a:hover { color: var(--crossed); }
+.crumb span { color: var(--ink-3); margin-inline: 0.4rem; }
+.crumb span:last-child { color: var(--ink-3); margin-inline: 0; }
+
+/* head ------------------------------------------------------------------- */
+.study-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding-bottom: clamp(28px, 4vw, 44px);
+  border-bottom: 1px solid var(--line-2);
+}
+
+.study-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.study-head h1 {
+  font-size: clamp(1.7rem, 4.2vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.study-head h1 .x { color: var(--crossed); }
+
+.study-lede {
+  font-family: var(--sans);
+  font-size: clamp(1rem, 1.8vw, 1.13rem);
+  line-height: 1.68;
+  color: var(--ink-2);
+  margin: 0;
+  max-width: 54ch;
+}
+.study-lede code { font-family: var(--mono); font-size: 0.88em; color: var(--ink); }
+
+.factbar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1px;
+  background: var(--line-2);
+  border: 1px solid var(--line-2);
+  margin: 0.5rem 0 0;
+}
+.factbar > div { background: var(--ground); padding: 0.65rem 0.85rem; display: flex; flex-direction: column; gap: 0.15rem; }
+.factbar dt { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-3); margin: 0; }
+.factbar dd { margin: 0; font-size: 0.82rem; color: var(--ink); }
+
+.repo { color: var(--ink); }
+.priv {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border: 1px solid var(--line-2);
+  padding: 0.1rem 0.35rem;
+  margin-left: 0.35rem;
+}
+
+/* blocks ----------------------------------------------------------------- */
+.block {
+  padding-block: clamp(28px, 4.5vw, 46px);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.block h2 {
+  margin: 0;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--crossed);
+  font-weight: 400;
+}
+
+.block p {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.97rem;
+  line-height: 1.72;
+  color: var(--ink-2);
+  max-width: 66ch;
+}
+
+.block p strong { color: var(--ink); font-weight: 500; }
+.block code { font-family: var(--mono); font-size: 0.87em; color: var(--ink); }
+.block .held { color: var(--held); }
+.block .x { color: var(--crossed); }
+
+blockquote {
+  margin: 0;
+  border-left: 1px solid var(--crossed-dim);
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+blockquote p { color: var(--ink-3); font-style: italic; max-width: 62ch; }
+
+.warn-block { background: linear-gradient(0deg, var(--crossed-glow), transparent); padding-inline: clamp(14px, 2.5vw, 22px); }
+
+pre .pr { color: var(--crossed); }
+pre .ok { color: var(--held); }
+
+.limits { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.limits li { font-family: var(--sans); font-size: 0.94rem; line-height: 1.66; color: var(--ink-2); max-width: 66ch; }
+.limits strong { color: var(--ink); font-weight: 500; }
+
+.corrections { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+.corrections li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.9rem; align-items: start; }
+.corrections .cn { font-size: 0.7rem; color: var(--crossed); padding-top: 0.15rem; }
+.corrections div { font-family: var(--sans); font-size: 0.94rem; line-height: 1.68; color: var(--ink-2); max-width: 64ch; }
+.corrections strong { color: var(--ink); font-weight: 500; display: block; }
+
+.study-foot { padding-top: clamp(28px, 4vw, 44px); }
+
+/* keep wide tables and code scrolling inside their own box */
+.study .tbl, .study pre { max-width: 100%; }
+.block > * { min-width: 0; }

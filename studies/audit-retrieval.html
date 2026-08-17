@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R-002 · ausearch reads stdin, not the audit log — Ghalvera</title>
+<meta name="description" content="The canonical documented invocation returns no matches and exits 0 on a host where the records exist. Cause isolated and confirmed.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="study.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="shell">
+    <a class="brand" href="../">ghalvera<span class="glyph">_</span></a>
+    <nav aria-label="Primary">
+      <a href="../#work">work</a>
+      <a href="../#tools" data-opt>tools</a>
+      <a href="../#rules" data-opt>rules</a>
+    </nav>
+  </div>
+</header>
+
+<main class="study">
+  <div class="shell">
+
+    <nav class="crumb" aria-label="Breadcrumb">
+      <a href="../#work">Work</a> <span>/</span> <span>R-002</span>
+    </nav>
+
+    <header class="study-head">
+      <div class="study-tags">
+        <span class="pill ok">solved</span>
+        <span class="pill">prove</span>
+        <span class="pill">17 Aug 2026</span>
+      </div>
+      <h1>The tool said there was no evidence.<br><span class="x">It was reading stdin.</span></h1>
+      <p class="study-lede">
+        <code>ausearch -k &lt;key&gt;</code> — the canonical documented
+        invocation — returns <em>no matches</em> and exits 0 on a host where
+        186 matching records exist in the configured audit log.
+      </p>
+
+      <dl class="factbar">
+        <div><dt>substrate</dt><dd>Fedora 44 · kernel 6.19.10 · aarch64</dd></div>
+        <div><dt>audit</dt><dd>4.1.4</dd></div>
+        <div><dt>repository</dt><dd><span class="repo">ghalvera</span> <span class="priv">private</span></dd></div>
+      </dl>
+    </header>
+
+    <section class="block">
+      <h2>Result</h2>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>invocation</th><th>records returned</th></tr></thead>
+          <tbody>
+            <tr><td>ausearch -k ghalvera_exec</td><td class="r">0 — “no matches”, exit 0</td></tr>
+            <tr><td>ausearch -m SYSCALL</td><td class="r">0</td></tr>
+            <tr><td>ausearch --start today / --start recent / no bound</td><td class="r">0</td></tr>
+            <tr><td>aureport --summary</td><td class="r">time range 01/01/1970 – 01/01/1970</td></tr>
+            <tr><td>ausearch <b>--input-logs</b> -k ghalvera_exec</td><td class="g">186</td></tr>
+            <tr><td>ausearch <b>-if &lt;log&gt;</b> -m SYSCALL</td><td class="g">771</td></tr>
+            <tr><td>aureport <b>--input-logs</b> --summary</td><td class="g">08/15/2026 – 08/17/2026</td></tr>
+            <tr><td>grep on the same file, same moment</td><td class="g">192</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>Mechanism</h2>
+      <p>
+        Reading the configured audit log is <strong>opt-in</strong>. The tool's
+        own documentation says so:
+      </p>
+      <blockquote>
+        <p><code>--input-logs</code> — Use the log file location from
+        auditd.conf as input for searching.</p>
+        <p>The ausearch utility can also take input from stdin as long as the
+        input is the raw log data.</p>
+      </blockquote>
+      <p>
+        With neither <code>--input-logs</code> nor <code>-if</code>, the tool
+        consumes <strong>stdin</strong>. With no redirect it reaches EOF
+        immediately and reports an absence of <em>matches</em> rather than an
+        absence of <em>input</em>.
+      </p>
+      <p>
+        <code>aureport</code> behaves identically. Its 1970 time range is the
+        tell — minimum and maximum timestamps never move off initialisation
+        when zero records parse.
+      </p>
+    </section>
+
+    <section class="block warn-block">
+      <h2>Why it is a forensic trap</h2>
+      <p>
+        No error. No warning. <strong>Exit status 0.</strong> Meanwhile
+        <code>auditctl -s</code> reports <span class="held">enabled 1</span>
+        and <span class="held">lost 0</span> — the subsystem genuinely is
+        healthy, which corroborates the wrong conclusion.
+      </p>
+      <p>
+        An investigator concluding <em>no execve was recorded, therefore no
+        process ran</em> would be wrong, with every available diagnostic
+        agreeing. This is the difference between absence of evidence and
+        absence of <span class="x">retrieval</span>, and the tool does not
+        distinguish them for you.
+      </p>
+    </section>
+
+    <section class="block">
+      <h2>How it was found</h2>
+      <p>
+        Three hypotheses were eliminated first, each costing a controlled run.
+        They are recorded because the next person should not repeat them.
+      </p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>cell</th><th>-a never,task</th><th>audit=1</th><th>ausearch</th><th>raw log</th></tr></thead>
+          <tbody>
+            <tr><td>A</td><td>present</td><td>absent</td><td class="r">0</td><td class="g">present</td></tr>
+            <tr><td>B</td><td class="g">removed</td><td>absent</td><td class="r">0</td><td class="g">present</td></tr>
+            <tr><td>C</td><td>present</td><td class="g">added</td><td class="r">0</td><td class="g">present</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Cell B removed the distribution's default rule, verified absent by a
+        setup guard that aborts if it is still loaded. Cell C added
+        <code>audit=1</code> with <code>grubby</code> and rebooted the guest,
+        confirmed in <code>/proc/cmdline</code>. Clock skew, time windows, the
+        <code>arch=b64</code> filter and log rotation were all ruled out
+        separately.
+      </p>
+      <p>
+        The control that cracked it is the one that should have come first:
+        <strong>does the tool find anything at all?</strong>
+      </p>
+      <pre>ausearch -m SYSCALL        <span class="pr">0</span>   → not key-specific
+aureport time range     <span class="pr">1970</span>   → not ausearch-specific
+with --input-logs        <span class="ok">771</span>   → the log was always readable</pre>
+    </section>
+
+    <section class="block">
+      <h2>Not determined</h2>
+      <ul class="limits">
+        <li>Whether this is a change in audit 4.x or long-standing upstream behaviour. <strong>Not established</strong> — it would be easy to call this a regression, and that claim has not been checked.</li>
+        <li>Whether Fedora 44 ships a configuration that affects it, or it is purely upstream.</li>
+        <li>Whether it reproduces on x86-64, on bare metal, or outside Lima/vz.</li>
+        <li>How common the bare invocation is in published runbooks. Anecdotally it is the usual form — that is an impression, not a measurement.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>Corrections</h2>
+      <p>
+        This finding was published wrong twice before it was published right.
+        Both superseded versions remain in the repository history rather than
+        being edited away.
+      </p>
+      <ol class="corrections">
+        <li>
+          <span class="cn">1</span>
+          <div>
+            <strong>“Linux Audit recorded nothing.”</strong>
+            Wrong. It recorded everything. The error was inferring absence from
+            a retrieval tool's silence — which is precisely what this finding
+            is about.
+          </div>
+        </li>
+        <li>
+          <span class="cn">2</span>
+          <div>
+            <strong>“The cause is unknown.”</strong>
+            Honest at the time, now superseded. Three hypotheses had been
+            eliminated and the control that would have cracked it had not yet
+            been run.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2>Consequence</h2>
+      <p>
+        Any procedure reading audit evidence must pass <code>--input-logs</code>
+        or <code>-if</code> explicitly, and must verify a non-empty result
+        against the raw log before treating an empty one as evidence of
+        absence.
+      </p>
+      <p>
+        Both range scenarios now do this: <code>observe.sh</code> counts
+        raw-log hits alongside the tool's answer, so a discrepancy of this
+        class appears in the artifact rather than being discovered three runs
+        later.
+      </p>
+    </section>
+
+    <footer class="study-foot">
+      <a class="btn q" href="../#work">← All work</a>
+    </footer>
+
+  </div>
+</main>
+
+</body>
+</html>
