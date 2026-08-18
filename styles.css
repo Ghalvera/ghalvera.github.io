@@ -301,13 +301,6 @@ pre {
 pre .p { color: var(--crossed); }
 pre .o { color: var(--held); }
 
-/* -- rules ---------------------------------------------------------------- */
-.rules { display: flex; flex-direction: column; gap: 1px; background: var(--line-2); border: 1px solid var(--line-2); }
-.rule { background: var(--ground); display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding: 1rem 1.2rem; }
-@media (min-width: 720px) { .rule { grid-template-columns: 2.6rem minmax(0, 1fr); gap: 1.3rem; align-items: baseline; } }
-.rule .num { font-size: 0.66rem; color: var(--crossed); }
-.rule p { margin: 0; font-family: var(--sans); color: var(--ink-2); font-size: 0.95rem; line-height: 1.66; max-width: 68ch; }
-.rule strong { color: var(--ink); font-weight: 500; }
 
 /* ==========================================================================
    foot
@@ -351,3 +344,16 @@ pre .o { color: var(--held); }
   transition: background 0.2s var(--ease), color 0.2s var(--ease);
 }
 .readmore:hover { background: var(--crossed); color: var(--void); }
+
+/* Standing conduct statement. Replaced the numbered "Rules" manifesto on
+   2026-08-18 — the obligations are real and must be stated, but a five-point
+   manifesto reads as posture rather than practice. */
+.conduct {
+  margin: 0 0 2.4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
+  max-width: 62ch;
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: var(--ink-3);
+}
