@@ -196,9 +196,16 @@ h1 .x { color: var(--crossed); }
 
 .lede { font-family: var(--sans); font-size: clamp(0.98rem, 1.7vw, 1.1rem); line-height: 1.68; color: var(--ink-2); margin: 0; max-width: 46ch; }
 
-.cta { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.cta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: stretch; }
 
 .btn {
+  /* inline-flex + nowrap: as bare flex items these stretched to the tallest
+     sibling and the longer label wrapped, so the pair rendered at different
+     heights with the text off-centre. 2026-08-18. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -356,4 +363,53 @@ pre .o { color: var(--held); }
   font-size: 0.78rem;
   line-height: 1.75;
   color: var(--ink-3);
+}
+
+/* -- open questions --------------------------------------------------------
+   Questions lead the page (2026-08-18). Rendered as a numbered register
+   rather than cards: this laboratory's subject is records, and a register is
+   what a record looks like. */
+.qlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.qrow {
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.45rem;
+}
+.qrow:last-child { border-bottom: 1px solid var(--line); }
+.q-id {
+  margin: 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.q-state {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid var(--line-2);
+  color: var(--ink-3);
+}
+.q-state.running { color: var(--held); border-color: var(--held-dim); }
+.qrow h3 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1.12rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 60ch;
+}
+.qrow p { margin: 0; font-family: var(--sans); font-size: 0.92rem; line-height: 1.65; color: var(--ink-2); max-width: 68ch; }
+.q-answer { color: var(--ink-3) !important; font-size: 0.86rem !important; }
+.q-answer b { color: var(--held); font-weight: 500; }
+
+@media (min-width: 860px) {
+  .qrow { grid-template-columns: 7rem minmax(0, 1fr); column-gap: 2rem; }
+  .q-id { grid-row: span 3; display: block; padding-top: 0.25rem; }
+  .q-state { display: inline-block; margin-top: 0.5rem; }
 }

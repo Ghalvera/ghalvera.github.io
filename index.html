@@ -20,9 +20,10 @@
   <div class="shell">
     <a class="brand" href="/">ghalvera<span class="glyph">_</span></a>
     <nav aria-label="Primary">
+      <a href="#questions">open</a>
       <a href="#thesis">thesis</a>
       <a href="#work">work</a>
-      <a href="#finding">finding</a>
+      <a href="#finding">found</a>
       <a href="#tools" data-opt>tools</a>
     </nav>
   </div>
@@ -43,7 +44,7 @@
           out whether the evidence agrees.
         </p>
         <div class="cta">
-          <a class="btn" href="#work">Current work</a>
+          <a class="btn" href="#questions">Open questions</a>
           <a class="btn q" href="#thesis">What we study</a>
         </div>
       </div>
@@ -64,11 +65,53 @@
     </div>
   </section>
 
+  <!-- ==================== OPEN QUESTIONS ==================== -->
+  <section class="sec" id="questions">
+    <div class="shell">
+      <div class="sec-head">
+        <p class="k">01 <b>//</b> Open</p>
+        <h2>What we are trying to find out</h2>
+        <p>
+          Questions first, because that is the honest ratio — four open, two
+          answered. Each states what would count as an answer, so it can be
+          judged rather than admired.
+        </p>
+      </div>
+
+      <ol class="qlist">
+        <li class="qrow">
+          <p class="q-id">Q-01 <span class="q-state running">running</span></p>
+          <h3>Do npm packages that publish provenance actually rebuild?</h3>
+          <p>Provenance is supposed to make a build independently checkable. Reproducibility has been measured for npm generally — around 5.78% of the top 5,000 — but never for the subset carrying attestations, which is the population where the attestation hands you the recipe.</p>
+          <p class="q-answer"><b>An answer is</b> a rebuild rate over a stated sample, compared against that 5.78% baseline, with every divergence classified by cause.</p>
+        </li>
+        <li class="qrow">
+          <p class="q-id">Q-02 <span class="q-state queued">queued</span></p>
+          <h3>Does a container runtime name the right actor?</h3>
+          <p>A bare user namespace preserves the real host identity — we established that. Whether runc, crun, gVisor and Kata behave the same is undocumented, and they differ enormously in how they mediate syscalls.</p>
+          <p class="q-answer"><b>An answer is</b> the same identity table across runtimes, with the exec chain shown. A runtime that loses attribution is the strongest outcome.</p>
+        </li>
+        <li class="qrow">
+          <p class="q-id">Q-03 <span class="q-state queued">queued</span></p>
+          <h3>Can an actor forge the identity before crossing?</h3>
+          <p>Audit's login UID is trusted because it is write-once per session. The interesting cases are the edges: a fresh session, a service context, a process that rewrites it before entering a namespace.</p>
+          <p class="q-answer"><b>An answer is</b> one of forged-and-visible, forged-and-invisible, or prevented outright. A kernel that refuses is a real result and strengthens the previous finding.</p>
+        </li>
+        <li class="qrow">
+          <p class="q-id">Q-04 <span class="q-state queued">queued</span></p>
+          <h3>Which subsystems report healthy while recording nothing?</h3>
+          <p>A default Fedora install runs the audit daemon, reports enabled and lossless, and records no syscalls at all. That cannot be the only one. Candidates: eBPF collectors dropping under load, journald rate limiting, netfilter logging, container runtime event streams.</p>
+          <p class="q-answer"><b>An answer is</b> a survey stating, per subsystem, what it claims, what it records, and what an operator would see if it stopped.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- ==================== THESIS ==================== -->
   <section class="sec" id="thesis">
     <div class="shell">
       <div class="sec-head">
-        <p class="k">01 <b>//</b> Thesis</p>
+        <p class="k">02 <b>//</b> Thesis</p>
         <h2>We break in on purpose. Then we catch the <span class="x">log lying</span>.</h2>
         <p>
           Exploitation research publishes the escape and moves on. Forensics
@@ -117,7 +160,7 @@
   <section class="sec" id="work">
     <div class="shell">
       <div class="sec-head">
-        <p class="k">02 <b>//</b> Work</p>
+        <p class="k">03 <b>//</b> Work</p>
         <h2>Studies, with their limits stated</h2>
         <p>
           Every study names one question, one substrate, and what it failed to
@@ -159,6 +202,15 @@
               <td><span class="pill ok">solved</span></td>
             </tr>
             <tr>
+              <td class="id">R-004</td>
+              <td>
+                npm provenance names the source, never the environment
+                <span class="sub">Every sampled attestation names repository, commit and workflow; none names the runner image, Node or npm version. The environment survives only in Actions logs, which expire — present under 88 days, gone over 150, consistent across seven independent publishers. So an attestation's verifiability is a property of how recently it was built, which nothing in it states. Limit: convenience sample; the 90-day boundary was not located.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">ghalvera/tools/provenance</span> <span class="priv-tag">private</span></td>
+              <td><span class="pill ok">solved</span></td>
+            </tr>
+            <tr>
               <td class="id">S-002</td>
               <td>
                 Container boundary under one misconfiguration
@@ -186,7 +238,7 @@
   <section class="sec" id="finding">
     <div class="shell">
       <div class="sec-head">
-        <p class="k">03 <b>//</b> Finding R-002-01</p>
+        <p class="k">04 <b>//</b> Found</p>
         <h2>The tool said there was no evidence.<br>It was reading <span class="x">stdin.</span></h2>
         <p>
           <code>ausearch -k &lt;key&gt;</code> — the canonical documented
@@ -260,7 +312,7 @@ with --input-logs        <span class="o">771</span>   the log was always readabl
   <section class="sec" id="tools">
     <div class="shell">
       <div class="sec-head">
-        <p class="k">04 <b>//</b> Tools</p>
+        <p class="k">05 <b>//</b> Tools</p>
         <h2>Instruments, and what they <span class="x">cannot</span> do</h2>
         <p>
           A tool that only documents its capabilities is marketing. Each of
