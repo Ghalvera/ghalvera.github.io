@@ -6,30 +6,37 @@
 <title>Ghalvera — Whether a record can be trusted</title>
 <meta name="description" content="A security research lab. Security rests on records nobody tests. We break in on purpose, then find out what the log actually says.">
 <meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://ghalvera.github.io/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Ghalvera">
 <meta property="og:description" content="Every check was green. Nothing was being recorded.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ghalvera.github.io/">
+<meta property="og:site_name" content="Ghalvera">
 <meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ResearchOrganization","name":"Ghalvera","url":"https://ghalvera.github.io/","description":"An independent security research laboratory studying whether records can be trusted.","sameAs":["https://github.com/Ghalvera"]}
+</script>
 </head>
 <body>
+
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="bar">
   <div class="shell">
     <a class="brand" href="/">ghalvera<span class="glyph">_</span></a>
     <nav aria-label="Primary">
-      <a href="#questions">open</a>
-      <a href="#thesis">thesis</a>
-      <a href="#work">work</a>
-      <a href="#finding">found</a>
-      <a href="#tools" data-opt>tools</a>
+      <a href="#questions">questions</a>
+      <a href="#work">findings</a>
+      <a href="#software" data-narrow>software</a>
+      <a href="#notes" data-opt>notes</a>
+      <a href="#about" data-opt>about</a>
     </nav>
   </div>
 </header>
 
-<main>
+<main id="main">
 
   <!-- ==================== HERO ==================== -->
   <section class="hero">
@@ -45,7 +52,7 @@
         </p>
         <div class="cta">
           <a class="btn" href="#questions">Open questions</a>
-          <a class="btn q" href="#thesis">What we study</a>
+          <a class="btn q" href="#software">Explore software</a>
         </div>
       </div>
 
@@ -72,9 +79,8 @@
         <p class="k">01 <b>//</b> Open</p>
         <h2>What we are trying to find out</h2>
         <p>
-          Questions first, because that is the honest ratio — four open, two
-          answered. Each states what would count as an answer, so it can be
-          judged rather than admired.
+          Questions first. Each states what would count as an answer, so it can
+          be judged rather than admired — and retired when the evidence says no.
         </p>
       </div>
 
@@ -82,8 +88,8 @@
         <li class="qrow">
           <p class="q-id">Q-01 <span class="q-state running">running</span></p>
           <h3>Do npm packages that publish provenance actually rebuild?</h3>
-          <p>Provenance is supposed to make a build independently checkable. Reproducibility has been measured for npm generally — around 5.78% of the top 5,000 — but never for the subset carrying attestations, which is the population where the attestation hands you the recipe.</p>
-          <p class="q-answer"><b>An answer is</b> a rebuild rate over a stated sample, compared against that 5.78% baseline, with every divergence classified by cause.</p>
+          <p>Provenance is supposed to make a build independently checkable. Reproducibility has been measured for npm generally, but not for the subset carrying attestations — the population where the attestation hands you the recipe.</p>
+          <p class="q-answer"><b>An answer is</b> a rebuild rate over a stated sample, compared against an explicitly cited prior baseline, with every divergence classified by cause.</p>
         </li>
         <li class="qrow">
           <p class="q-id">Q-02 <span class="q-state queued">queued</span></p>
@@ -94,7 +100,7 @@
         <li class="qrow">
           <p class="q-id">Q-03 <span class="q-state queued">queued</span></p>
           <h3>Can an actor forge the identity before crossing?</h3>
-          <p>Audit's login UID is trusted because it is write-once per session. The interesting cases are the edges: a fresh session, a service context, a process that rewrites it before entering a namespace.</p>
+          <p>Audit's login UID survives a namespace crossing, but this guest reports <code>loginuid_immutable 0 unlocked</code>. A process with <code>CAP_AUDIT_CONTROL</code> may be able to change it before crossing; that is the untested edge.</p>
           <p class="q-answer"><b>An answer is</b> one of forged-and-visible, forged-and-invisible, or prevented outright. A kernel that refuses is a real result and strengthens the previous finding.</p>
         </li>
         <li class="qrow">
@@ -160,15 +166,15 @@
   <section class="sec" id="work">
     <div class="shell">
       <div class="sec-head">
-        <p class="k">03 <b>//</b> Work</p>
-        <h2>Studies, with their limits stated</h2>
+        <p class="k">03 <b>//</b> Findings</p>
+        <h2>Studies and findings, with their limits stated</h2>
         <p>
           Every study names one question, one substrate, and what it failed to
           establish. Nothing here targets a system we do not own.
         </p>
       </div>
 
-      <div class="tbl">
+      <div class="tbl" role="region" tabindex="0" aria-label="Studies and findings register; scroll horizontally on narrow screens">
         <table>
           <thead>
             <tr><th>ref</th><th>question</th><th>repository</th><th>state</th></tr>
@@ -178,7 +184,7 @@
               <td class="id">S-001</td>
               <td>
                 Security decision invariance
-                <span class="sub">When the transient process-to-action link is unavailable, does an attribution stay defensible — or should the method abstain? Calibrated against an independent action ledger. Limit: one Fedora ARM64 host, one scenario, one transformation.</span>
+                <span class="sub">Protocol and evidence-availability work asks whether an attribution remains defensible when a transient link is withheld. One Fedora 44 ARM64 probe found the mechanism credible; physical calibration is not authorized and no empirical finding is claimed.</span>
               </td>
               <td class="repocell"><span class="repo-name">security-decision-invariance</span> <span class="priv-tag">private</span><a class="readmore" href="studies/decision-invariance.html">Read →</a></td>
               <td><span class="pill live">active</span></td>
@@ -196,16 +202,43 @@
               <td class="id">R-002</td>
               <td>
                 ausearch reads stdin, not the audit log
-                <span class="sub">The canonical invocation returns “no matches” and <b style="color:var(--crossed);font-weight:400">exits 0</b> on a host where 192 matching records exist. Cause isolated and confirmed against the tool's own documentation. Limit: audit 4.1.4, one guest, one kernel.</span>
+                <span class="sub">The canonical invocation returns “no matches” and <b style="color:var(--crossed);font-weight:400">exits 0</b>; <code>--input-logs</code> returned 186 parsed matches while a raw grep found 192 keyed lines in the same file. Limit: audit 4.1.4, one guest, one kernel.</span>
               </td>
               <td class="repocell"><span class="repo-name">ghalvera/range</span> <span class="priv-tag">private</span><a class="readmore" href="studies/audit-retrieval.html">Read →</a></td>
               <td><span class="pill ok">solved</span></td>
             </tr>
             <tr>
-              <td class="id">R-004</td>
+              <td class="id">R-002-02</td>
+              <td>
+                Fedora ships syscall auditing disabled while reporting healthy
+                <span class="sub">Fedora 44 Cloud loads <code>-a task,never</code>. Removing that one rule restored capture in two runs; adding <code>audit=1</code> did not. Limit: one ARM64 cloud image; the documented task-filter mechanism was not independently isolated.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">ghalvera/range</span> <span class="priv-tag">private</span></td>
+              <td><span class="pill ok">solved</span></td>
+            </tr>
+            <tr>
+              <td class="id">R-003-01</td>
+              <td>
+                The real actor survives an unprivileged user namespace crossing
+                <span class="sub"><code>auid=501</code> remained stable while the process saw itself as uid 0; the namespaced uid never appeared in evidence. Limit: bare <code>unshare -Ur</code>, one host, two runs; login UID tampering remains untested.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">ghalvera/range</span> <span class="priv-tag">private</span></td>
+              <td><span class="pill ok">held</span></td>
+            </tr>
+            <tr>
+              <td class="id">R-004-01</td>
               <td>
                 npm provenance names the source, never the environment
-                <span class="sub">Every sampled attestation names repository, commit and workflow; none names the runner image, Node or npm version. The environment survives only in Actions logs, which expire — present under 88 days, gone over 150, consistent across seven independent publishers. So an attestation's verifiability is a property of how recently it was built, which nothing in it states. Limit: convenience sample; the 90-day boundary was not located.</span>
+                <span class="sub">All 12 sampled attestations named repository, commit and workflow; none named runner image, Node or npm version. Limit: a deliberately biased convenience sample; no population or rebuild-rate claim.</span>
+              </td>
+              <td class="repocell"><span class="repo-name">ghalvera/tools/provenance</span> <span class="priv-tag">private</span></td>
+              <td><span class="pill ok">solved</span></td>
+            </tr>
+            <tr>
+              <td class="id">R-004-02</td>
+              <td>
+                Provenance verifiability expires outside the attestation
+                <span class="sub">Build environment detail survived only in Actions logs: available in 5/5 testable rows under 88 days and absent in 4/4 over 150 days across seven publishers. Limit: the retention boundary itself was not measured.</span>
               </td>
               <td class="repocell"><span class="repo-name">ghalvera/tools/provenance</span> <span class="priv-tag">private</span></td>
               <td><span class="pill ok">solved</span></td>
@@ -242,21 +275,24 @@
         <h2>The tool said there was no evidence.<br>It was reading <span class="x">stdin.</span></h2>
         <p>
           <code>ausearch -k &lt;key&gt;</code> — the canonical documented
-          invocation — returns “no matches” and exits 0 on a host where the
-          records exist. It is not reading the audit log. It is reading stdin,
+          invocation — returns “no matches” and exits 0. The same configured
+          log yielded 186 parsed matches through <code>--input-logs</code> and
+          192 keyed raw lines through <code>grep</code>. The bare invocation is
+          not reading that log; it is reading stdin,
           hitting EOF, and reporting an absence of matches rather than an
           absence of input.
         </p>
       </div>
 
-      <div class="tbl" style="margin-bottom:1.4rem">
+      <div class="tbl" role="region" tabindex="0" aria-label="Audit retrieval result table; scroll horizontally on narrow screens" style="margin-bottom:1.4rem">
         <table>
           <thead><tr><th>invocation</th><th>records</th></tr></thead>
           <tbody>
             <tr><td>ausearch -k &lt;key&gt;</td><td class="r">0 — “no matches”, exit 0</td></tr>
             <tr><td>ausearch -m SYSCALL</td><td class="r">0</td></tr>
             <tr><td>aureport --summary</td><td class="r">time range 1970 – 1970</td></tr>
-            <tr><td>ausearch <b>--input-logs</b> -k &lt;key&gt;</td><td class="g">186</td></tr>
+            <tr><td>ausearch <b>--input-logs</b> -k &lt;key&gt;</td><td class="g">186 parsed matches</td></tr>
+            <tr><td>grep for the key in the same raw log</td><td class="g">192 raw keyed lines</td></tr>
             <tr><td>ausearch <b>-if &lt;log&gt;</b> -m SYSCALL</td><td class="g">771</td></tr>
             <tr><td>aureport <b>--input-logs</b></td><td class="g">08/15 – 08/17/2026</td></tr>
           </tbody>
@@ -295,7 +331,7 @@
           </p>
           <p>
             Three hypotheses were eliminated first — the distribution's
-            <code>never,task</code> rule, a missing <code>audit=1</code>, the
+            <code>-a task,never</code> rule, a missing <code>audit=1</code>, the
             arch filter — plus clock skew, time windows and rotation. The
             control that cracked it was the one that should have come first:
             does the tool find <em>anything</em>?
@@ -308,20 +344,45 @@ with --input-logs        <span class="o">771</span>   the log was always readabl
     </div>
   </section>
 
-  <!-- ==================== TOOLS ==================== -->
-  <section class="sec" id="tools">
+  <!-- ==================== SOFTWARE ==================== -->
+  <section class="sec" id="software">
     <div class="shell">
       <div class="sec-head">
-        <p class="k">05 <b>//</b> Tools</p>
-        <h2>Instruments, and what they <span class="x">cannot</span> do</h2>
+        <p class="k">05 <b>//</b> Software</p>
+        <h2>Products and instruments, with their <span class="x">limits</span></h2>
         <p>
-          A tool that only documents its capabilities is marketing. Each of
-          these states the boundary of its own guarantee, and the test suites
-          assert those limits so they cannot quietly become false.
+          Research can end in a finding, an instrument, or software useful
+          beyond the experiment. Maturity is stated plainly; a clean report is
+          never presented as proof of safety.
         </p>
       </div>
 
+      <p class="group-label">Products</p>
       <div class="tools">
+        <article class="tool feature">
+          <p class="tool-meta"><span class="pill live">alpha</span> public · Apache-2.0</p>
+          <h3>trace-npm</h3>
+          <p>See what an npm lifecycle script actually did: files touched, child processes spawned, network endpoints contacted and suspicious credential paths read.</p>
+          <pre><span class="p">$</span> npx trace-npm report \
+  --trace-file postinstall.strace</pre>
+          <p class="limits"><b>Does not:</b> sandbox a package, judge intent, assign reputation, or prove a clean package is safe. Live capture currently requires Linux and <code>strace</code>.</p>
+          <p class="tool-links"><a href="https://github.com/joshuadefreitas/trace-npm">Source</a><a href="https://www.npmjs.com/package/trace-npm">npm</a></p>
+        </article>
+
+      </div>
+
+      <p class="group-label">Research infrastructure</p>
+      <div class="tools">
+        <article class="tool">
+          <p class="tool-meta"><span class="pill">research</span> private</p>
+          <h3>provenance</h3>
+          <p>Extracts the rebuild recipe an npm SLSA attestation actually contains and records missing source, workflow and environment fields without silently filtering malformed packages.</p>
+          <pre><span class="p">$</span> provenance inspect package@version
+<span class="o">source named       yes
+environment named  no</span></pre>
+          <p class="limits"><b>Does not:</b> rebuild the package, establish ecosystem rates, or recover expired build logs. It is scoped to the provenance questions that produced R-004-01 and R-004-02.</p>
+        </article>
+
         <div class="tool">
           <h3>ledger</h3>
           <p>
@@ -367,9 +428,25 @@ head     a7f3c19b04e2…</span></pre>
     </div>
   </section>
 
+  <!-- ==================== FIELD NOTES ==================== -->
+  <section class="sec" id="notes">
+    <div class="shell note-grid">
+      <div class="sec-head">
+        <p class="k">06 <b>//</b> Field notes</p>
+        <h2>The lesson, downstream of the <span class="x">evidence</span></h2>
+        <p>Field Notes explain mechanisms discovered in completed work. They name their source, reproduce every command they teach, and state what the lesson does not establish.</p>
+      </div>
+      <aside class="note-card" aria-label="Field Notes publication state">
+        <p class="q-id">publication state <span class="q-state">deliberate</span></p>
+        <h3>No notes published yet.</h3>
+        <p>Drafts remain private until their technical claims are checked against the canonical finding. The future collection may become a manual; it will never replace the research record.</p>
+      </aside>
+    </div>
+  </section>
+
 </main>
 
-<footer class="foot">
+<footer class="foot" id="about">
   <div class="shell">
     <p class="conduct">Every target is owned or explicitly authorized. Offensive work exists to generate falsification pressure against our own claims, never against a third party. Vulnerability findings follow coordinated disclosure.</p>
   </div>
@@ -384,9 +461,9 @@ head     a7f3c19b04e2…</span></pre>
       <p class="legal">Madrid <span style="color:var(--crossed)">//</span> 40.4168° N / 3.7038° W</p>
     </div>
     <div class="links">
+      <a href="https://github.com/Ghalvera">Ghalvera on GitHub</a>
       <a href="https://joshuadefreitas.github.io">Joshua de Freitas</a>
-      <a href="https://github.com/joshuadefreitas">GitHub</a>
-      <a href="#work">Work</a>
+      <a href="#work">Findings</a>
     </div>
   </div>
 </footer>

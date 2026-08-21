@@ -6,41 +6,45 @@
 <title>R-002 · ausearch reads stdin, not the audit log — Ghalvera</title>
 <meta name="description" content="The canonical documented invocation returns no matches and exits 0 on a host where the records exist. Cause isolated and confirmed.">
 <meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://ghalvera.github.io/studies/audit-retrieval.html">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="study.css">
 </head>
 <body>
 
+<a class="skip" href="#main">Skip to content</a>
+
 <header class="bar">
   <div class="shell">
     <a class="brand" href="../">ghalvera<span class="glyph">_</span></a>
     <nav aria-label="Primary">
-      <a href="../#work">work</a>
-      <a href="../#tools" data-opt>tools</a>
-      <a href="../#rules" data-opt>rules</a>
+      <a href="../#work">findings</a>
+      <a href="../#software" data-opt>software</a>
+      <a href="../#notes" data-opt>notes</a>
     </nav>
   </div>
 </header>
 
-<main class="study">
+<main class="study" id="main">
   <div class="shell">
 
     <nav class="crumb" aria-label="Breadcrumb">
-      <a href="../#work">Work</a> <span>/</span> <span>R-002</span>
+      <a href="../#work">Findings</a> <span>/</span> <span>R-002</span>
     </nav>
 
     <header class="study-head">
       <div class="study-tags">
         <span class="pill ok">solved</span>
-        <span class="pill">prove</span>
+        <span class="pill">retrieve</span>
         <span class="pill">17 Aug 2026</span>
       </div>
       <h1>The tool said there was no evidence.<br><span class="x">It was reading stdin.</span></h1>
       <p class="study-lede">
         <code>ausearch -k &lt;key&gt;</code> — the canonical documented
-        invocation — returns <em>no matches</em> and exits 0 on a host where
-        186 matching records exist in the configured audit log.
+        invocation — returns <em>no matches</em> and exits 0. Reading the same
+        configured log explicitly returned 186 parsed matches; a raw grep found
+        192 keyed lines because the operations count different representations.
       </p>
 
       <dl class="factbar">
@@ -52,7 +56,7 @@
 
     <section class="block">
       <h2>Result</h2>
-      <div class="tbl">
+      <div class="tbl" role="region" tabindex="0" aria-label="Audit retrieval results; scroll horizontally on narrow screens">
         <table>
           <thead><tr><th>invocation</th><th>records returned</th></tr></thead>
           <tbody>
@@ -117,9 +121,9 @@
         Three hypotheses were eliminated first, each costing a controlled run.
         They are recorded because the next person should not repeat them.
       </p>
-      <div class="tbl">
+      <div class="tbl" role="region" tabindex="0" aria-label="Audit hypothesis cells; scroll horizontally on narrow screens">
         <table>
-          <thead><tr><th>cell</th><th>-a never,task</th><th>audit=1</th><th>ausearch</th><th>raw log</th></tr></thead>
+          <thead><tr><th>cell</th><th>-a task,never</th><th>audit=1</th><th>ausearch</th><th>raw log</th></tr></thead>
           <tbody>
             <tr><td>A</td><td>present</td><td>absent</td><td class="r">0</td><td class="g">present</td></tr>
             <tr><td>B</td><td class="g">removed</td><td>absent</td><td class="r">0</td><td class="g">present</td></tr>
@@ -200,7 +204,7 @@ with --input-logs        <span class="ok">771</span>   → the log was always re
     </section>
 
     <footer class="study-foot">
-      <a class="btn q" href="../#work">← All work</a>
+      <a class="btn q" href="../#work">← All findings</a>
     </footer>
 
   </div>
