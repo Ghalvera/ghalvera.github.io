@@ -1,17 +1,1011 @@
-@font-face{font-family:Inter;src:url("assets/fonts/inter-latin.woff2") format("woff2");font-weight:400 800;font-display:swap}@font-face{font-family:DMMono;src:url("assets/fonts/dm-mono-latin.woff2") format("woff2");font-weight:400;font-display:swap}
-:root{--void:#07090b;--ground:#0b0e11;--panel:#11151a;--raised:#171c22;--line:#252b32;--line-2:#343c45;--ink:#e8edf0;--muted:#929ba3;--dim:#5e6871;--cold:#7ed5e4;--cold-2:#2c94a8;--acid:#b9de66;--amber:#e4ae56;--red:#e36055;--mono:DMMono,ui-monospace,SFMono-Regular,Menlo,monospace;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--shell:min(1240px,calc(100vw - 48px))}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}body:before{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");opacity:.035;mix-blend-mode:screen}a{color:inherit}button{font:inherit}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.skip{position:fixed;left:15px;top:15px;z-index:1000;background:var(--cold);color:var(--void);padding:9px 14px;transform:translateY(-160%)}.skip:focus{transform:none}:focus-visible{outline:2px solid var(--cold);outline-offset:4px}
-.topbar{position:fixed;z-index:90;left:0;right:0;top:0;height:72px;padding:0 max(24px,calc((100vw - 1240px)/2));display:flex;align-items:center;justify-content:space-between;background:rgba(7,9,11,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(126,213,228,.14)}.wordmark{display:flex;align-items:center;gap:11px;color:var(--ink);text-decoration:none;font:700 .78rem var(--sans);letter-spacing:.2em}.wordmark-mark{display:grid;place-items:center;width:32px;height:32px;border:1px solid var(--cold-2);color:var(--cold);font:400 .68rem var(--mono);letter-spacing:0}.topbar nav{display:flex;align-items:center;gap:25px}.topbar nav a{font:400 .61rem var(--mono);letter-spacing:.08em;color:var(--muted);text-decoration:none}.topbar nav a:hover{color:var(--cold)}.topbar .external{border:1px solid var(--line-2);padding:9px 13px;color:var(--ink)}.menu{display:none;background:none;border:0;width:42px;height:42px}.menu span:not(.sr-only){display:block;width:23px;height:1px;margin:7px auto;background:var(--ink)}
-.hero{position:relative;min-height:100svh;padding:150px max(24px,calc((100vw - 1240px)/2)) 85px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:70px;overflow:hidden;background:radial-gradient(circle at 78% 45%,rgba(44,148,168,.09),transparent 28%),linear-gradient(180deg,var(--void),var(--ground))}.grid-field{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(rgba(126,213,228,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(126,213,228,.11) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(90deg,transparent,#000 30%,#000 80%,transparent)}.hero-copy,.verifier{position:relative;z-index:2}.system-label,.section-index{font:400 .59rem var(--mono);letter-spacing:.16em;color:var(--cold);text-transform:uppercase}.system-label{display:flex;align-items:center;gap:12px}.system-label i{width:5px;height:5px;background:var(--acid);border-radius:50%;box-shadow:0 0 12px var(--acid)}.hero h1{font:700 clamp(4rem,7vw,7.2rem)/.88 var(--sans);letter-spacing:-.065em;margin:38px 0 15px}.hero h1 em{font-style:normal;color:var(--cold)}.counterline{font:400 clamp(1.35rem,2.4vw,2.15rem)/1.2 var(--mono);color:var(--red);letter-spacing:-.035em}.lede{max-width:600px;color:var(--muted);font-size:1.08rem}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin:35px 0}.button{min-height:50px;padding:0 20px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font:700 .72rem var(--sans);letter-spacing:.02em;transition:background .2s,color .2s,transform .2s}.button:hover{transform:translateY(-2px)}.button.primary{background:var(--cold);color:var(--void)}.button.primary:hover{background:#a1e7f2}.button.secondary{border:1px solid var(--line-2);color:var(--ink)}.maturity{display:flex;align-items:center;gap:12px;font:400 .67rem var(--mono);color:var(--muted)}.maturity p{margin:0}.maturity strong{color:var(--ink)}.maturity-led{width:9px;height:9px;border:1px solid var(--amber);box-shadow:0 0 10px rgba(228,174,86,.5)}
-.verifier{border:1px solid var(--line-2);background:rgba(12,16,19,.92);box-shadow:0 40px 90px rgba(0,0,0,.4);min-height:580px;overflow:hidden}.verifier-head{height:49px;padding:0 17px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font:400 .56rem var(--mono);letter-spacing:.1em;color:var(--dim)}.record-block{display:grid;grid-template-columns:.8fr 1.2fr;padding:22px 20px;gap:13px;border-bottom:1px solid var(--line);font:400 .62rem var(--mono)}.record-key{color:var(--dim)}.record-value{color:#bfc7cd}.record-value.valid{color:var(--acid)}.record-value.mono{color:var(--cold)}.inference-line{height:62px;display:flex;align-items:center;gap:11px;padding:0 20px}.inference-line span{height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--red))}.inference-line span:last-child{background:linear-gradient(90deg,var(--red),transparent)}.inference-line b{font:400 .52rem var(--mono);letter-spacing:.1em;color:var(--red);text-transform:uppercase}.conclusion-block{margin:0 20px;padding:25px;background:#0b0e11;border-left:2px solid var(--red)}.conclusion-block>p:first-child{font:400 .55rem var(--mono);letter-spacing:.12em;color:var(--dim)}.conclusion-block h2{font-size:1.35rem;line-height:1.3;letter-spacing:-.03em}.verdict{display:flex;justify-content:space-between;align-items:center;margin-top:27px;padding-top:18px;border-top:1px dashed var(--line-2);font:400 .58rem var(--mono);color:var(--dim)}.verdict strong{font-size:.75rem;color:var(--red);letter-spacing:.09em}.verdict-note{margin:13px 0 0;color:var(--muted);font-size:.72rem}.scanner{position:absolute;left:0;right:0;height:1px;top:20%;background:linear-gradient(90deg,transparent,var(--cold),transparent);box-shadow:0 0 15px var(--cold);opacity:.6;animation:scan 5s ease-in-out infinite}
-.section{padding:clamp(90px,11vw,155px) max(24px,calc((100vw - 1240px)/2));border-top:1px solid var(--line)}.thesis{background:var(--panel)}.thesis-grid,.section-head{display:grid;grid-template-columns:1.15fr .85fr;gap:9vw;align-items:start}.thesis-grid{margin-top:42px}.thesis h2,.section-head h2,.loop-copy h2,.safety h2,.closing h2{font:700 clamp(3.2rem,5.8vw,6rem)/.94 var(--sans);letter-spacing:-.058em;margin:0}.thesis-copy{color:var(--muted)}.thesis-copy .lead{font-size:1.25rem;color:var(--ink);line-height:1.5}.claim-rule{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:85px;padding:25px;border:1px solid var(--line);background:var(--ground);font:400 .57rem var(--mono);letter-spacing:.09em}.claim-rule span{padding:8px 10px;border:1px solid var(--line-2)}.claim-rule i{color:var(--muted);font-style:normal}.claim-rule b{color:var(--red);font-weight:400}
-.section-head{margin-bottom:65px;align-items:end}.section-head>p{color:var(--muted);max-width:420px;margin:0}.evaluation{background:var(--ground)}.tuple-layout{display:grid;grid-template-columns:.8fr 1.2fr;border:1px solid var(--line)}.tuple{list-style:none;margin:0;padding:0;border-right:1px solid var(--line)}.tuple li+li{border-top:1px solid var(--line)}.tuple button{width:100%;border:0;background:none;color:var(--muted);padding:16px 18px;display:flex;align-items:center;gap:19px;text-align:left;font:400 .71rem var(--mono);cursor:pointer}.tuple button span{font-size:.51rem;color:var(--dim)}.tuple button:hover,.tuple button.is-active{background:var(--raised);color:var(--cold)}.field-console{position:relative;min-height:520px;padding:35px 42px;background:radial-gradient(circle at 80% 20%,rgba(44,148,168,.08),transparent 30%),#0b0e11}.console-top{display:flex;justify-content:space-between;font:400 .55rem var(--mono);letter-spacing:.1em;color:var(--dim)}.console-key{margin-top:75px;font:400 .7rem var(--mono);color:var(--cold)}.field-console h3{font-size:clamp(2.2rem,4vw,4.1rem);line-height:1;letter-spacing:-.05em;max-width:600px}.field-console>p:not(.console-key){max-width:620px;color:var(--muted)}.console-example{position:absolute;left:42px;right:42px;bottom:36px;border-top:1px solid var(--line);padding-top:20px}.console-example span{display:block;font:400 .51rem var(--mono);color:var(--dim);margin-bottom:9px}.console-example code{color:var(--acid)}.verdict-row{display:grid;grid-template-columns:repeat(4,1fr);margin-top:20px;border:1px solid var(--line)}.verdict-row>div{padding:22px}.verdict-row>div+div{border-left:1px solid var(--line)}.verdict-row b{font:400 .62rem var(--mono);letter-spacing:.08em}.verdict-row p{font-size:.72rem;color:var(--muted);margin:10px 0 0}.dot{display:inline-block;width:7px;height:7px;margin-right:8px}.sufficient{background:var(--acid)}.insufficient{background:var(--red)}.separate{background:var(--amber)}.invalid{background:var(--dim)}
-.dimensions{background:var(--panel)}.dimension-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}.dimension-grid article{min-height:370px;padding:24px;display:flex;flex-direction:column}.dimension-grid article+article{border-left:1px solid var(--line)}.dimension-grid article>span{font:400 .53rem var(--mono);color:var(--dim)}.dimension-glyph{width:64px;height:64px;margin:48px 0 40px;border:1px solid var(--cold-2);display:grid;place-items:center;color:var(--cold);font:400 1rem var(--mono);box-shadow:inset 0 0 20px rgba(44,148,168,.1)}.dimension-grid h3{font-size:1.5rem;letter-spacing:-.03em}.dimension-grid p{color:var(--muted);font-size:.85rem}.dimension-grid code{margin-top:auto;color:var(--red);font-size:.65rem}.loop-section{display:grid;grid-template-columns:.68fr 1.32fr;gap:7vw;background:var(--void)}.loop-copy p:last-child{color:var(--muted)}.loop-diagram{display:flex;align-items:stretch}.loop-diagram div{flex:1;border:1px solid var(--line);padding:28px 22px}.loop-diagram i{align-self:center;color:var(--red);font-style:normal;margin:0 8px}.loop-diagram span{font:400 .52rem var(--mono);color:var(--dim)}.loop-diagram b{display:block;font:400 1rem var(--mono);color:var(--cold);margin:45px 0 22px}.loop-diagram p{font-size:.75rem;color:var(--muted)}
-.work{background:var(--ground)}.work-table{overflow-x:auto;border:1px solid var(--line)}.work-table+.stage-zero{margin-top:25px}.work-row{min-width:780px;min-height:70px;display:grid;grid-template-columns:.5fr 1.1fr 1.5fr .6fr;align-items:center;text-decoration:none;border-bottom:1px solid var(--line);font-size:.78rem}.work-row:last-child{border-bottom:0}.work-row>*{padding:16px 18px}.work-row>*+*{border-left:1px solid var(--line)}.work-row.header{min-height:40px;background:var(--raised);font:400 .52rem var(--mono);letter-spacing:.1em;color:var(--dim)}a.work-row:hover{background:var(--panel)}.work-row span:first-child{font-family:var(--mono);color:var(--cold)}.work-row strong{font:400 .56rem var(--mono);color:var(--acid)}.work-row .muted-state{color:var(--amber)}.stage-zero{display:grid;grid-template-columns:1fr 1.5fr auto;gap:30px;align-items:center;padding:26px;border:1px solid var(--line);background:var(--panel)}.stage-zero div span{display:block;font:400 .52rem var(--mono);color:var(--cold)}.stage-zero strong{font-size:.88rem}.stage-zero p{font-size:.76rem;color:var(--muted);margin:0}.stage-zero code{color:var(--acid);font-size:.6rem}
-.software{background:var(--panel)}.software-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.software-grid article,.software-grid>a{padding:28px;border:1px solid var(--line);background:var(--ground);text-decoration:none}.software-grid>a:hover{border-color:var(--cold-2)}.software-grid div{display:flex;justify-content:space-between}.software-grid span{font:400 .51rem var(--mono);color:var(--dim)}.software-grid b{font:400 .8rem var(--mono);color:var(--cold)}.software-grid p{margin:35px 0 0;color:var(--muted);font-size:.8rem}.frontiers{background:var(--ground)}.frontier-list{border-top:1px solid var(--line)}.frontier-list div{display:grid;grid-template-columns:.25fr 1fr 1.5fr;align-items:center;min-height:75px;border-bottom:1px solid var(--line);transition:background .2s}.frontier-list div:hover{background:var(--panel)}.frontier-list span{font:400 .54rem var(--mono);color:var(--dim)}.frontier-list b{font-size:.88rem}.frontier-list p{margin:0;color:var(--muted);font-size:.8rem}
-.safety{display:grid;grid-template-columns:.7fr 1.3fr;gap:9vw;background:linear-gradient(135deg,#21100f,var(--void) 58%)}.safety-mark{width:250px;height:250px;border:1px solid var(--red);display:grid;place-items:center;text-align:center;color:var(--red);font:400 1rem/1.5 var(--mono);letter-spacing:.18em;transform:rotate(-4deg);box-shadow:inset 0 0 50px rgba(227,96,85,.09)}.safety>div:last-child>p:last-child{color:var(--muted);max-width:700px}.closing{text-align:center;min-height:650px;display:grid;place-items:center;align-content:center;background:radial-gradient(circle at 50% 50%,rgba(44,148,168,.1),transparent 35%),var(--void)}.closing h2{max-width:950px}.closing>p:not(.section-index){color:var(--muted);margin:25px 0 35px}footer{min-height:140px;padding:35px max(24px,calc((100vw - 1240px)/2));border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:.69rem}footer p{color:var(--dim);margin:0}footer>div{display:flex;justify-content:flex-end;gap:22px}footer>div a{color:var(--muted);text-decoration:none}
-@keyframes scan{0%,100%{top:17%;opacity:0}15%{opacity:.65}70%{opacity:.65}85%{top:87%;opacity:0}}
-@media(max-width:1000px){.topbar nav{position:absolute;top:72px;left:0;right:0;background:rgba(7,9,11,.98);border-bottom:1px solid var(--line);padding:20px 24px;flex-direction:column;align-items:stretch}.topbar.js-ready .menu{display:block}.topbar.js-ready nav{display:none}.topbar.js-ready.is-open nav{display:flex}.topbar nav a{padding:10px}.topbar .external{text-align:center}.hero{grid-template-columns:1fr;padding-top:130px}.verifier{width:min(680px,100%);margin:auto}.thesis-grid,.section-head,.loop-section,.safety{grid-template-columns:1fr}.tuple-layout{grid-template-columns:1fr}.tuple{border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}.tuple li+li{border-top:0}.tuple li{border:1px solid var(--line)}.verdict-row,.dimension-grid{grid-template-columns:1fr 1fr}.dimension-grid article:nth-child(3){border-left:0;border-top:1px solid var(--line)}.dimension-grid article:nth-child(4){border-top:1px solid var(--line)}.loop-diagram{margin-top:20px}.stage-zero{grid-template-columns:1fr}footer{grid-template-columns:1fr;text-align:center;gap:20px}footer .wordmark,footer>div{justify-content:center}}
-@media(max-width:680px){.hero,.section{padding-left:18px;padding-right:18px}.hero h1{font-size:clamp(3.5rem,16vw,5.5rem)}.hero-actions{flex-direction:column}.button{width:100%}.verifier{min-height:auto}.record-block{grid-template-columns:1fr}.record-key{margin-top:7px}.tuple{grid-template-columns:1fr 1fr}.field-console{padding:28px 22px}.console-example{position:static;margin-top:45px}.verdict-row,.dimension-grid,.software-grid{grid-template-columns:1fr}.verdict-row>div+div,.dimension-grid article+article{border-left:0;border-top:1px solid var(--line)}.dimension-grid article{min-height:310px}.loop-diagram{flex-direction:column}.loop-diagram i{transform:rotate(90deg);margin:8px}.frontier-list div{grid-template-columns:.25fr 1fr}.frontier-list p{grid-column:2}.safety-mark{width:190px;height:190px}.section-head h2,.thesis h2,.loop-copy h2,.safety h2,.closing h2{font-size:clamp(2.8rem,13vw,4.2rem)}}
-.tuple-layout>*{min-width:0}.tuple button{min-width:0;overflow-wrap:anywhere}.verifier-head .example{color:var(--cold)}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* ============================================================================
+   GHALVERA — visual system
+
+   An instrument, not an interface.
+
+   Three commitments, and every rule below follows from them:
+
+   1. TRUE BLACK. The page ground is #000. Panels are lifted off it by a few
+      points of luminance and a hairline, never by a heavy fill. Depth comes
+      from stacked shadow and a single inset highlight, not from blur.
+
+   2. MONOSPACE IS THE VOICE. Display type, structure, labels and data are all
+      DM Mono. Inter appears only where continuous prose has to be read
+      comfortably. A laboratory that studies records should be set in the
+      typeface records are written in — and it is the single thing that keeps
+      this page from reading as a generic dark product site.
+
+   3. COLOUR MEANS SOMETHING. Two semantic colours carry the argument:
+
+        HELD    cold steel  --held     verified, intact, still standing
+        CROSSED signal red  --crossed  broken, insufficient, did not hold
+
+      The four verdict colours appear ONLY where a verdict is rendered.
+      Nothing on this page is coloured for decoration. If something is red, it
+      means something did not hold.
+
+   The hero panel is a hand-authored illustration and says so. It is never
+   dressed as live telemetry — the site's own tests forbid it, which is the
+   correct rule for a laboratory whose subject is evidence that overstates
+   itself.
+   ========================================================================= */
+
+@font-face {
+  font-family: Inter;
+  src: url("assets/fonts/inter-latin.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: DMMono;
+  src: url("assets/fonts/dm-mono-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+
+  /* ground — true black, then three barely-lifted surfaces */
+  --void: #000000;
+  --ground: #050507;
+  --raised: #0e0e13;
+
+  /* hairlines. The lattice everything sits on. */
+  --line: #16161b;
+  --line-2: #23232b;
+  --line-3: #32323c;
+
+  /* ink — bone, not white. A clinical white reads as a document; bone reads
+     as a lit panel. */
+  --ink: #e8e5df;
+  --ink-2: #8e8b85;
+  /* 4.90:1 on true black. The previous #5f5c57 measured 3.16:1 and failed AA
+     for normal text everywhere it was used, which was every instrument label
+     on the page. Found by review 2026-08-23. */
+  --ink-3: #7d7a73;
+
+  /* the two semantic colours */
+  --held: #7fa3b3;
+  --held-lit: #a3cddd;
+  --held-dim: #3d5560;
+  --crossed: #d8453d;
+  --crossed-dim: #6b2320;
+
+  /* verdict palette — permitted ONLY in verdict contexts */
+  --v-sufficient: #8fbf6a;
+  --v-insufficient: var(--crossed);
+  --v-separable: #c9a24d;
+  --v-invalid: #5f5c57;
+
+  /* Programme state, which is NOT a verdict. A working hypothesis and a
+     review state of NO_VERDICT are not the NOT_SEPARABLE verdict, and giving
+     all three the same amber made one colour mean three things — a violation
+     of commitment 3 inside the rules that state it. Found by review
+     2026-08-23. This token is deliberately outside the verdict palette. */
+  --pending: #9a8f78;
+
+  --mono: DMMono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --gutter: max(22px, calc((100vw - 1240px) / 2));
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 15.5px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+/* Panel texture: a 1-in-3 scanline. Not a screen effect — it is what gives the
+   black a surface instead of a void, and it is the page's quietest signature. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(232, 229, 223, 0.016) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+/* Film grain, layered over the scanline at very low opacity. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+}
+
+a { color: inherit; }
+button { font: inherit; }
+/* Steel, not red. Selection is chrome; red is reserved for a boundary that
+   did not hold. Raised twice by review 2026-08-23 — an inherited signature
+   is not a reason to keep contradicting commitment 3. */
+::selection { background: var(--held); color: var(--void); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: fixed;
+  left: 15px; top: 15px;
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--void);
+  padding: 9px 14px;
+  text-decoration: none;
+  font-size: 0.775rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: translateY(-160%);
+}
+.skip:focus { transform: none; }
+/* Steel, not red: a focus ring is chrome, and red on this site means a
+   boundary did not hold. 2px for visibility on true black. Found by
+   review 2026-08-23. */
+:focus-visible { outline: 2px solid var(--held); outline-offset: 3px; }
+
+/* ==========================================================================
+   corner brackets
+
+   Incomplete framing. Four ticks at the corners read as a region under active
+   inspection; a closed rectangle reads as a box. Used at full strength on the
+   hero instrument and as a two-corner accent elsewhere.
+   ========================================================================= */
+.corner {
+  position: absolute;
+  width: 15px; height: 15px;
+  border: 0 solid var(--held);
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px rgba(127, 163, 179, 0.5));
+}
+.corner.tl { left: -1px; top: -1px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.corner.tr { right: -1px; top: -1px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.corner.bl { left: -1px; bottom: -1px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.corner.br { right: -1px; bottom: -1px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+.corner.small { width: 9px; height: 9px; }
+
+/* ==========================================================================
+   masthead
+   ========================================================================= */
+.topbar {
+  position: fixed;
+  z-index: 90;
+  left: 0; right: 0; top: 0;
+  height: 66px;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: color-mix(in srgb, var(--void) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-2);
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--ink);
+  text-decoration: none;
+  font: 400 0.8rem var(--mono);
+  letter-spacing: 0.3em;
+}
+
+.wordmark-mark {
+  display: grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border: 1px solid var(--held-dim);
+  color: var(--held);
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0;
+  box-shadow: inset 0 0 14px rgba(127, 163, 179, 0.08);
+}
+
+.topbar nav { display: flex; align-items: center; gap: 24px; }
+.topbar nav a {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+/* The slash prefix is the lab's own mark, carried into the navigation. */
+.topbar nav a::before { content: "/"; color: var(--ink-3); margin-right: 0.34em; }
+.topbar nav a:hover { color: var(--held-lit); }
+.topbar .external {
+  border: 1px solid var(--line-2);
+  padding: 8px 13px;
+  color: var(--ink);
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.topbar .external::before { content: none; }
+.topbar .external:hover { border-color: var(--held-dim); color: var(--held-lit); }
+
+.menu { display: none; background: none; border: 0; width: 42px; height: 42px; }
+.menu span:not(.sr-only) { display: block; width: 22px; height: 1px; margin: 7px auto; background: var(--ink); }
+
+/* ==========================================================================
+   hero
+   ========================================================================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: 140px var(--gutter) 80px;
+  display: grid;
+  grid-template-columns: 1.02fr 0.98fr;
+  align-items: center;
+  gap: 60px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 40%, rgba(127, 163, 179, 0.09), transparent 34%),
+    radial-gradient(circle at 50% 112%, rgba(216, 69, 61, 0.05), transparent 55%),
+    var(--void);
+}
+
+.grid-field {
+  position: absolute;
+  inset: 0;
+  opacity: 0.75;
+  background-image:
+    linear-gradient(rgba(127, 163, 179, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 163, 179, 0.06) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse at 70% 45%, #000 10%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse at 70% 45%, #000 10%, transparent 72%);
+}
+
+.hero-copy, .hero-visual { position: relative; z-index: 2; }
+
+.system-label, .section-index {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.22em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin: 0;
+}
+.system-label { display: flex; align-items: center; gap: 12px; color: var(--held); }
+.system-label i {
+  width: 5px; height: 5px;
+  background: var(--held);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--held);
+}
+
+/* The headline is monospace and large. Big mono is unusual, which is the
+   point: it reads as a machine's own voice rather than a marketing display
+   face, and it is the loudest carrier of this lab's identity. */
+.hero h1 {
+  font: 400 clamp(2.5rem, 5.6vw, 4.5rem)/1.02 var(--mono);
+  letter-spacing: -0.045em;
+  margin: 32px 0 18px;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--held);
+  text-shadow: 0 0 34px rgba(127, 163, 179, 0.34);
+}
+
+.counterline {
+  font: 400 clamp(1.2rem, 2.3vw, 1.95rem)/1.18 var(--mono);
+  color: var(--crossed);
+  letter-spacing: -0.035em;
+  margin: 0 0 26px;
+  text-shadow: 0 0 30px rgba(216, 69, 61, 0.26);
+}
+
+.lede {
+  max-width: 52ch;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0 0 32px;
+}
+
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 32px; }
+
+.button {
+  min-height: 48px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  text-decoration: none;
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: background 0.22s var(--ease), color 0.22s var(--ease),
+              border-color 0.22s var(--ease), box-shadow 0.22s var(--ease);
+}
+.button.primary {
+  background: transparent;
+  border: 1px solid var(--held);
+  color: var(--held-lit);
+  box-shadow: inset 0 0 24px rgba(127, 163, 179, 0.08);
+}
+.button.primary:hover {
+  background: var(--held);
+  color: var(--void);
+  box-shadow: 0 0 30px rgba(127, 163, 179, 0.32);
+}
+.button.secondary { border: 1px solid var(--line-3); color: var(--ink-2); }
+.button.secondary:hover { border-color: var(--ink-2); color: var(--ink); }
+
+.maturity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 400 0.775rem var(--mono);
+  color: var(--ink-3);
+}
+.maturity p { margin: 0; }
+.maturity strong { color: var(--ink-2); font-weight: 400; }
+.maturity-led {
+  width: 8px; height: 8px;
+  flex-shrink: 0;
+  border: 1px solid var(--pending);
+  box-shadow: 0 0 9px rgba(154, 143, 120, 0.4);
+}
+
+/* -- the hero instrument ---------------------------------------------------
+   A radial scope behind a hand-authored verification panel. The scope carries
+   no data and asserts nothing; it is the instrument's housing. The panel
+   states that it is a static example, because it is one. */
+.hero-visual { width: 100%; height: 640px; justify-self: end; }
+
+.ambient-glow {
+  position: absolute;
+  width: 680px; height: 680px;
+  right: -60px; top: -10px;
+  background: radial-gradient(circle, rgba(127, 163, 179, 0.16), transparent 62%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.scope { position: absolute; right: -40px; top: -10px; width: 500px; height: 500px; z-index: 1; }
+.scope-ticks {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: repeating-conic-gradient(rgba(127, 163, 179, 0.5) 0deg 0.6deg, transparent 0.6deg 5deg);
+  mask-image: radial-gradient(circle, transparent 61%, #000 62%, #000 67%, transparent 68%);
+  -webkit-mask-image: radial-gradient(circle, transparent 61%, #000 62%, #000 67%, transparent 68%);
+}
+/* The red sector is gone. A conic wedge in --crossed on a radial scope is the
+   visual form of a DETECTION -- it says something was found and did not hold,
+   on a page where red carries exactly that meaning, in a graphic that measures
+   nothing. Found by rereview 2026-08-23. A neutral steel arc marks the same
+   quadrant without claiming a reading. */
+.scope-wedge {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 298deg, rgba(127, 163, 179, 0.16), rgba(127, 163, 179, 0) 26deg);
+  mix-blend-mode: screen;
+}
+.scope-ring-outer { position: absolute; inset: 7%; border-radius: 50%; border: 1px solid var(--line-2); }
+.scope-ring-mid {
+  position: absolute; inset: 18%;
+  border-radius: 50%;
+  border: 1px solid rgba(127, 163, 179, 0.22);
+}
+.scope-ring-inner { position: absolute; inset: 32%; border-radius: 50%; border: 1px dashed rgba(127, 163, 179, 0.24); }
+/* The sweep is gone. A rotating leading edge is radar grammar: it reads as an
+   instrument acquiring, on an element that acquires nothing. Motion on this
+   page is now confined to .scanner, which lives inside the panel that declares
+   itself a STATIC EXAMPLE -- an animated illustration is honest when the
+   illustration is labelled. Found by rereview 2026-08-23. */
+.scope-sweep {
+  position: absolute; inset: 7%;
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 62%, rgba(127, 163, 179, 0.06) 63%, transparent 70%);
+}
+.scope-core {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 74px; height: 74px;
+  border: 1px solid var(--held-dim);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--void);
+  color: var(--held);
+  font: 400 1.1rem var(--mono);
+  z-index: 3;
+  box-shadow: 0 0 44px rgba(127, 163, 179, 0.22), inset 0 0 20px rgba(127, 163, 179, 0.09);
+}
+
+/* An evidence chip carrying a specimen ID and three rows of hex once sat here,
+   in --held, the colour reserved for "verified". Review 2026-08-23 blocked it:
+   invented bytes labelled EVIDENCE, beside the contracted panel, are a
+   hand-authored illustration dressed as a measurement — precisely the failure
+   this laboratory studies. Removed rather than softened, because a decorative
+   readout that merely looks less like data is still a readout. The scope
+   remains as housing: rings, ticks and a sweep assert no value. */
+
+.verifier {
+  position: absolute;
+  right: -40px; bottom: 0;
+  width: 500px;
+  z-index: 4;
+  border: 1px solid var(--line-2);
+  background: linear-gradient(168deg, var(--raised), var(--void) 72%);
+  box-shadow:
+    0 50px 100px rgba(0, 0, 0, 0.7),
+    0 0 90px rgba(127, 163, 179, 0.07),
+    inset 0 1px 0 rgba(127, 163, 179, 0.14);
+}
+
+.verifier-head {
+  height: 46px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, var(--line-2) 14%, var(--line-2) 86%, transparent) 1;
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+}
+.verifier-head .example { color: var(--held); }
+
+.record-block {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  padding: 21px 20px;
+  gap: 12px;
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, var(--line) 14%, var(--line) 86%, transparent) 1;
+  font: 400 0.775rem var(--mono);
+}
+.record-key { color: var(--ink-3); letter-spacing: 0.08em; }
+/* Digits align in a column, as they would on a real readout. */
+.record-value { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.record-value.valid { color: var(--held); text-shadow: 0 0 14px rgba(127, 163, 179, 0.4); }
+.record-value.mono { color: var(--held); }
+
+/* The boundary the whole laboratory is about: everything above verified,
+   everything below is inference. */
+.inference-line { height: 58px; display: flex; align-items: center; gap: 11px; padding: 0 20px; }
+.inference-line span { height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--crossed)); }
+.inference-line span:last-child { background: linear-gradient(90deg, var(--crossed), transparent); }
+.inference-line b {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.18em;
+  color: var(--crossed);
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(216, 69, 61, 0.4);
+}
+
+.conclusion-block {
+  position: relative;
+  margin: 0 20px 20px;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.6);
+  border-left: 2px solid var(--crossed);
+  box-shadow: -10px 0 26px -10px rgba(216, 69, 61, 0.3);
+}
+.conclusion-block > p:first-child {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+  margin: 0;
+}
+.conclusion-block h2 {
+  font: 400 1.15rem/1.35 var(--mono);
+  letter-spacing: -0.025em;
+  margin: 10px 0 0;
+  color: var(--ink);
+}
+.verdict {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line-3);
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+}
+.verdict strong {
+  font-size: 0.775rem;
+  font-weight: 400;
+  color: var(--crossed);
+  letter-spacing: 0.12em;
+  text-shadow: 0 0 16px rgba(216, 69, 61, 0.45);
+}
+.verdict-note { margin: 12px 0 0; color: var(--ink-3); font-family: var(--sans); font-size: 0.775rem; }
+
+.scanner {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  top: 20%;
+  background: linear-gradient(90deg, transparent, var(--held), transparent);
+  box-shadow: 0 0 14px var(--held);
+  opacity: 0.55;
+  animation: scan 6s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   section frame
+
+   Every section is a numbered register entry. The index is set on a rule that
+   runs to the edge of the shell — a lab report's ruled heading, not a card.
+   ========================================================================= */
+.section { padding: clamp(84px, 10vw, 148px) var(--gutter); border-top: 1px solid var(--line-2); position: relative; }
+
+.section-index { display: flex; align-items: center; gap: 16px; color: var(--held); }
+.section-index::after { content: ""; height: 1px; flex: 1; background: linear-gradient(90deg, var(--line-2), transparent); }
+
+.thesis, .dimensions, .software { background: var(--ground); }
+.evaluation, .work, .frontiers { background: var(--void); }
+
+.thesis-grid, .section-head { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: 8vw; align-items: start; }
+.thesis-grid { margin-top: 40px; }
+
+.thesis h2, .section-head h2, .loop-copy h2, .safety h2, .closing h2 {
+  font: 400 clamp(1.85rem, 3.6vw, 2.9rem)/1.08 var(--mono);
+  letter-spacing: -0.04em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.thesis-copy { color: var(--ink-2); font-family: var(--sans); }
+.thesis-copy .lead { font-size: 1.12rem; color: var(--ink); line-height: 1.58; }
+
+/* The inference rule, set as an equation. */
+.claim-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 78px;
+  padding: 26px;
+  border: 1px solid var(--line-2);
+  background: var(--void);
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.16em;
+  position: relative;
+  box-shadow: inset 0 0 60px rgba(127, 163, 179, 0.03);
+}
+.claim-rule::before, .claim-rule::after {
+  content: "";
+  position: absolute;
+  width: 13px; height: 13px;
+  border: 0 solid var(--held-dim);
+}
+.claim-rule::before { left: -1px; top: -1px; border-top-width: 1px; border-left-width: 1px; }
+.claim-rule::after { right: -1px; bottom: -1px; border-bottom-width: 1px; border-right-width: 1px; }
+.claim-rule span { padding: 9px 11px; border: 1px solid var(--line-2); color: var(--ink-2); }
+.claim-rule i { color: var(--ink-3); font-style: normal; }
+/* The arrow leads to NARROW VERDICT; it is punctuation, not a failure. */
+.claim-rule b { color: var(--held); font-weight: 400; letter-spacing: 0.16em; }
+
+.section-head { margin-bottom: 60px; align-items: end; }
+.section-head > div { display: grid; gap: 20px; }
+.section-head > p { color: var(--ink-2); font-family: var(--sans); max-width: 42ch; margin: 0; font-size: 0.95rem; line-height: 1.7; }
+
+/* ==========================================================================
+   02 — evaluation object
+   ========================================================================= */
+.tuple-layout { display: grid; grid-template-columns: 0.78fr 1.22fr; border: 1px solid var(--line-2); background: var(--void); }
+.tuple-layout > * { min-width: 0; }
+
+.tuple { list-style: none; margin: 0; padding: 0; border-right: 1px solid var(--line-2); }
+.tuple li + li { border-top: 1px solid var(--line); }
+.tuple button {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-2);
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  text-align: left;
+  font: 400 0.775rem var(--mono);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition: background 0.18s var(--ease), color 0.18s var(--ease);
+  position: relative;
+}
+.tuple button span { font-size: 0.775rem; color: var(--ink-3); letter-spacing: 0.1em; }
+.tuple button:hover { background: var(--raised); color: var(--ink); }
+/* The active field is marked with a steel rail, not a fill — a selected row in
+   an instrument, not a highlighted item in a menu. */
+.tuple button.is-active { background: var(--raised); color: var(--held-lit); }
+.tuple button.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--held);
+  box-shadow: 0 0 14px var(--held);
+}
+
+.field-console {
+  position: relative;
+  min-height: 520px;
+  padding: 34px 40px;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(127, 163, 179, 0.07), transparent 34%),
+    var(--void);
+}
+.console-top {
+  display: flex;
+  justify-content: space-between;
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+}
+.console-key { margin-top: 70px; font: 400 0.775rem var(--mono); color: var(--held); letter-spacing: 0.1em; }
+.field-console h3 {
+  font: 400 clamp(1.7rem, 3.2vw, 2.9rem)/1.1 var(--mono);
+  letter-spacing: -0.04em;
+  max-width: 18ch;
+  margin: 14px 0 18px;
+}
+.field-console > p:not(.console-key) {
+  max-width: 58ch;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+}
+.console-example { position: absolute; left: 40px; right: 40px; bottom: 34px; border-top: 1px solid var(--line); padding-top: 18px; }
+.console-example span { display: block; font: 400 0.775rem var(--mono); letter-spacing: 0.18em; color: var(--ink-3); margin-bottom: 9px; }
+.console-example code { color: var(--held); font-family: var(--mono); font-size: 0.78rem; }
+
+/* The four permitted verdicts. This is the one place the verdict palette is
+   allowed to appear at full strength. */
+.verdict-row { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 18px; border: 1px solid var(--line-2); }
+.verdict-row > div { padding: 22px; position: relative; background: var(--void); transition: background 0.2s var(--ease); }
+.verdict-row > div + div { border-left: 1px solid var(--line-2); }
+.verdict-row > div:hover { background: var(--ground); }
+.verdict-row b { font: 400 0.775rem var(--mono); letter-spacing: 0.14em; }
+.verdict-row p { font-family: var(--sans); font-size: 0.78rem; color: var(--ink-3); margin: 12px 0 0; line-height: 1.62; }
+.dot { display: inline-block; width: 6px; height: 6px; margin-right: 9px; vertical-align: middle; }
+.sufficient { background: var(--v-sufficient); box-shadow: 0 0 10px var(--v-sufficient); }
+.insufficient { background: var(--v-insufficient); box-shadow: 0 0 10px var(--v-insufficient); }
+.separate { background: var(--v-separable); box-shadow: 0 0 10px var(--v-separable); }
+.invalid { background: var(--v-invalid); }
+
+/* ==========================================================================
+   03 — four dimensions
+   ========================================================================= */
+.dimension-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line-2); }
+.dimension-grid article {
+  min-height: 358px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  background: var(--void);
+  transition: background 0.24s var(--ease);
+}
+.dimension-grid article + article { border-left: 1px solid var(--line-2); }
+.dimension-grid article:hover { background: var(--ground); }
+.dimension-grid article > span { font: 400 0.775rem var(--mono); letter-spacing: 0.16em; color: var(--ink-3); }
+.dimension-glyph {
+  width: 60px; height: 60px;
+  margin: 46px 0 38px;
+  border: 1px solid var(--held-dim);
+  display: grid;
+  place-items: center;
+  color: var(--held);
+  font: 400 0.95rem var(--mono);
+  box-shadow: inset 0 0 22px rgba(127, 163, 179, 0.09);
+  transition: border-color 0.24s var(--ease), box-shadow 0.24s var(--ease);
+}
+.dimension-grid article:hover .dimension-glyph {
+  border-color: var(--held);
+  box-shadow: inset 0 0 26px rgba(127, 163, 179, 0.16), 0 0 22px rgba(127, 163, 179, 0.14);
+}
+.dimension-grid h3 { font: 400 1.32rem var(--mono); letter-spacing: -0.03em; margin: 0 0 10px; }
+.dimension-grid p { color: var(--ink-2); font-family: var(--sans); font-size: 0.85rem; line-height: 1.62; margin: 0; }
+/* The inequality is the finding in miniature: the record names one thing, the
+   conclusion claims another. */
+.dimension-grid code { margin-top: auto; color: var(--crossed); font-family: var(--mono); font-size: 0.775rem; letter-spacing: 0.04em; }
+
+/* ==========================================================================
+   04 — operating loop
+   ========================================================================= */
+.loop-section { display: grid; grid-template-columns: 0.66fr 1.34fr; gap: 6vw; background: var(--void); align-items: center; }
+.loop-copy { display: grid; gap: 20px; }
+.loop-copy p:last-child { color: var(--ink-2); font-family: var(--sans); font-size: 0.95rem; line-height: 1.7; margin: 0; }
+.loop-diagram { display: flex; align-items: stretch; }
+.loop-diagram div {
+  flex: 1;
+  border: 1px solid var(--line-2);
+  padding: 28px 22px;
+  background: var(--ground);
+  position: relative;
+  transition: border-color 0.24s var(--ease);
+}
+.loop-diagram div:hover { border-color: var(--held-dim); }
+.loop-diagram i { align-self: center; color: var(--held-dim); font-style: normal; margin: 0 10px; }
+.loop-diagram span { font: 400 0.775rem var(--mono); letter-spacing: 0.16em; color: var(--ink-3); }
+.loop-diagram b { display: block; font: 400 0.95rem var(--mono); letter-spacing: 0.18em; color: var(--held); margin: 42px 0 20px; }
+.loop-diagram p { font-family: var(--sans); font-size: 0.8rem; color: var(--ink-2); margin: 0; line-height: 1.6; }
+
+/* ==========================================================================
+   05 — record
+   ========================================================================= */
+.work-table { overflow-x: auto; border: 1px solid var(--line-2); overscroll-behavior-inline: contain; scrollbar-color: var(--line-3) var(--void); }
+.work-table + .stage-zero { margin-top: 22px; }
+.work-row {
+  min-width: 780px;
+  min-height: 66px;
+  display: grid;
+  grid-template-columns: 0.5fr 1.1fr 1.5fr 0.6fr;
+  align-items: center;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.78rem;
+  background: var(--void);
+  transition: background 0.18s var(--ease);
+}
+.work-row:last-child { border-bottom: 0; }
+.work-row > * { padding: 15px 18px; }
+.work-row > * + * { border-left: 1px solid var(--line); }
+.work-row.header {
+  min-height: 38px;
+  background: var(--ground);
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+}
+a.work-row:hover { background: var(--ground); }
+.work-row span:first-child { font-family: var(--mono); color: var(--held); letter-spacing: 0.06em; font-variant-numeric: tabular-nums; }
+.work-row span:nth-child(2) { color: var(--ink); }
+.work-row span:nth-child(3) { color: var(--ink-2); font-family: var(--sans); font-size: 0.82rem; }
+.work-row strong { font: 400 0.775rem var(--mono); letter-spacing: 0.14em; color: var(--held); }
+.work-row .muted-state { color: var(--pending); }
+
+.stage-zero {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr auto;
+  gap: 28px;
+  align-items: center;
+  padding: 26px;
+  border: 1px solid var(--line-2);
+  background: var(--ground);
+  position: relative;
+}
+.stage-zero::before, .stage-zero::after {
+  content: "";
+  position: absolute;
+  width: 12px; height: 12px;
+  border: 0 solid var(--held-dim);
+}
+.stage-zero::before { left: -1px; top: -1px; border-top-width: 1px; border-left-width: 1px; }
+.stage-zero::after { right: -1px; bottom: -1px; border-bottom-width: 1px; border-right-width: 1px; }
+.stage-zero div span { display: block; font: 400 0.775rem var(--mono); letter-spacing: 0.16em; color: var(--held); margin-bottom: 8px; }
+.stage-zero strong { font: 400 0.88rem var(--mono); color: var(--ink); letter-spacing: -0.01em; }
+.stage-zero p { font-family: var(--sans); font-size: 0.8rem; color: var(--ink-2); margin: 0; line-height: 1.62; }
+.stage-zero code { color: var(--held); font-family: var(--mono); font-size: 0.775rem; letter-spacing: 0.1em; }
+
+/* ==========================================================================
+   06 — software
+   ========================================================================= */
+.software-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.software-grid article, .software-grid > a {
+  padding: 28px;
+  border: 1px solid var(--line-2);
+  background: var(--void);
+  text-decoration: none;
+  transition: border-color 0.24s var(--ease), background 0.24s var(--ease);
+  position: relative;
+}
+.software-grid > a:hover { border-color: var(--held-dim); background: var(--ground); }
+.software-grid div { display: flex; justify-content: space-between; align-items: baseline; }
+.software-grid span { font: 400 0.775rem var(--mono); letter-spacing: 0.18em; color: var(--ink-3); }
+.software-grid b { font: 400 0.85rem var(--mono); color: var(--held); letter-spacing: 0.04em; }
+/* Every tool states its limit. That sentence is the product of this section,
+   so it is set in prose and given room. */
+.software-grid p { margin: 34px 0 0; color: var(--ink-2); font-family: var(--sans); font-size: 0.83rem; line-height: 1.65; }
+
+/* ==========================================================================
+   07 — prospective register
+   ========================================================================= */
+.frontier-list { border-top: 1px solid var(--line-2); }
+.frontier-list div {
+  display: grid;
+  grid-template-columns: 0.22fr 1fr 1.5fr;
+  align-items: center;
+  min-height: 74px;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s var(--ease), padding-left 0.2s var(--ease);
+  padding-left: 0;
+}
+.frontier-list div:hover { background: var(--ground); padding-left: 10px; }
+.frontier-list span { font: 400 0.775rem var(--mono); letter-spacing: 0.16em; color: var(--ink-3); }
+.frontier-list b { font: 400 0.88rem var(--mono); color: var(--ink); letter-spacing: -0.01em; }
+.frontier-list p { margin: 0; color: var(--ink-2); font-family: var(--sans); font-size: 0.82rem; }
+
+/* ==========================================================================
+   08 — non-negotiable
+
+   The only section allowed a red ground. It is the one place on the site where
+   the colour is not reporting a result but stating a boundary.
+   ========================================================================= */
+.safety {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 8vw;
+  align-items: center;
+  background:
+    radial-gradient(circle at 12% 50%, rgba(216, 69, 61, 0.09), transparent 42%),
+    linear-gradient(135deg, #140807, var(--void) 62%);
+}
+.safety > div:last-child { display: grid; gap: 20px; }
+.safety-mark {
+  width: 236px; height: 236px;
+  border: 1px solid var(--crossed);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--crossed);
+  font: 400 0.95rem/1.55 var(--mono);
+  letter-spacing: 0.2em;
+  transform: rotate(-4deg);
+  box-shadow: inset 0 0 60px rgba(216, 69, 61, 0.1), 0 0 50px rgba(216, 69, 61, 0.07);
+  text-shadow: 0 0 18px rgba(216, 69, 61, 0.4);
+}
+.safety > div:last-child > p:last-child { color: var(--ink-2); font-family: var(--sans); max-width: 66ch; margin: 0; font-size: 0.95rem; line-height: 1.72; }
+
+/* ==========================================================================
+   closing
+   ========================================================================= */
+.closing {
+  text-align: center;
+  min-height: 620px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  background: radial-gradient(circle at 50% 50%, rgba(127, 163, 179, 0.08), transparent 38%), var(--void);
+}
+.closing .section-index { justify-content: center; }
+.closing .section-index::after { content: none; }
+.closing h2 { max-width: 20ch; }
+.closing > p:not(.section-index) { color: var(--ink-2); font-family: var(--sans); margin: 22px 0 32px; font-size: 0.98rem; }
+
+footer {
+  min-height: 130px;
+  padding: 34px var(--gutter);
+  border-top: 1px solid var(--line-2);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  font-size: 0.775rem;
+  background: var(--void);
+}
+footer p { color: var(--ink-3); margin: 0; font-family: var(--sans); }
+footer > div { display: flex; justify-content: flex-end; gap: 22px; }
+footer > div a { color: var(--ink-2); text-decoration: none; font: 400 0.775rem var(--mono); letter-spacing: 0.13em; transition: color 0.2s var(--ease); }
+footer > div a:hover { color: var(--held-lit); }
+
+/* ==========================================================================
+   motion
+   ========================================================================= */
+@keyframes scan { 0%, 100% { top: 15%; opacity: 0; } 15% { opacity: 0.6; } 70% { opacity: 0.6; } 85% { top: 88%; opacity: 0; } }
+
+/* ==========================================================================
+   responsive
+   ========================================================================= */
+@media (max-width: 1000px) {
+  .topbar nav {
+    position: absolute;
+    top: 66px; left: 0; right: 0;
+    background: color-mix(in srgb, var(--void) 97%, transparent);
+    border-bottom: 1px solid var(--line-2);
+    padding: 18px 22px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+  /* These three stay minified: the site's accessibility contract test matches
+     them as exact strings, so their formatting is part of the contract. */
+  .topbar.js-ready .menu{display:block}.topbar.js-ready nav{display:none}.topbar.js-ready.is-open nav{display:flex}
+  .topbar nav a { padding: 11px 0; }
+  .topbar .external { text-align: center; margin-top: 8px; }
+
+  .hero { grid-template-columns: 1fr; padding-top: 120px; gap: 40px; }
+  .hero-visual { height: auto; }
+  .ambient-glow, .scope { display: none; }
+  /* relative, not static: .corner and .scanner are absolute descendants, and a
+     static parent is not a containing block — they would escape to
+     .hero-visual and frame the whole column instead of the panel. Found by
+     review 2026-08-23; source reading alone does not catch it.
+
+     The offsets must be cancelled too. The desktop rule sets right:-40px and
+     bottom:0 for absolute placement; under position:relative those are not
+     inert — right:-40px shifts the panel 40px to the RIGHT, pushing its edge
+     into body{overflow-x:clip} at exactly the widths this rule exists to fix.
+     Found by rereview 2026-08-23, the same cascade miss one level down. */
+  .verifier {
+    position: relative;
+    right: auto; bottom: auto; left: auto;
+    width: min(680px, 100%);
+    margin: auto;
+  }
+
+  .thesis-grid, .section-head, .loop-section, .safety { grid-template-columns: 1fr; gap: 34px; }
+  .safety { justify-items: start; }
+  .tuple-layout { grid-template-columns: 1fr; }
+  .tuple { border-right: 0; border-bottom: 1px solid var(--line-2); display: grid; grid-template-columns: repeat(3, 1fr); }
+  .tuple li + li { border-top: 0; }
+  .tuple li { border: 1px solid var(--line); }
+  .verdict-row, .dimension-grid { grid-template-columns: 1fr 1fr; }
+  .dimension-grid article:nth-child(3) { border-left: 0; }
+  .dimension-grid article:nth-child(3), .dimension-grid article:nth-child(4) { border-top: 1px solid var(--line-2); }
+  .loop-diagram { margin-top: 18px; }
+  .stage-zero { grid-template-columns: 1fr; }
+  footer { grid-template-columns: 1fr; text-align: center; gap: 18px; }
+  footer .wordmark, footer > div { justify-content: center; }
+}
+
+@media (max-width: 680px) {
+  :root { --gutter: 18px; }
+  .hero h1 { font-size: clamp(2.1rem, 10vw, 3.2rem); }
+  .hero-actions { flex-direction: column; }
+  .button { width: 100%; }
+  .record-block { grid-template-columns: 1fr; }
+  .record-key { margin-top: 6px; }
+  .tuple { grid-template-columns: 1fr 1fr; }
+  .field-console { padding: 28px 22px; min-height: auto; }
+  .console-example { position: static; margin-top: 40px; }
+  .verdict-row, .dimension-grid, .software-grid { grid-template-columns: 1fr; }
+  .verdict-row > div + div, .dimension-grid article + article { border-left: 0; border-top: 1px solid var(--line-2); }
+  .dimension-grid article { min-height: 300px; }
+  .loop-diagram { flex-direction: column; }
+  .loop-diagram i { transform: rotate(90deg); margin: 10px; }
+  .frontier-list div { grid-template-columns: 0.25fr 1fr; row-gap: 4px; padding: 14px 0; }
+  .frontier-list p { grid-column: 2; }
+  .safety-mark { width: 184px; height: 184px; font-size: 0.82rem; }
+  .claim-rule { margin-top: 52px; padding: 20px; gap: 10px; }
+}
+
+/* The no-space form is matched as an exact string by the accessibility
+   contract test, so its formatting is part of the contract. */
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

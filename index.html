@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ghalvera — The record can be true</title>
   <meta name="description" content="Ghalvera studies evidentiary sufficiency under valid verification: when a genuine security record is not enough for the conclusion attached to it.">
-  <meta name="theme-color" content="#080b0e">
+  <meta name="theme-color" content="#000000">
   <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://ghalvera.github.io/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -43,22 +43,35 @@
         <div class="maturity"><span class="maturity-led" aria-hidden="true"></span><p><strong>Working hypothesis.</strong> Foundation threshold not yet earned.</p></div>
       </div>
 
-      <div class="verifier" role="img" aria-label="A valid record passes verification while its attached authorization conclusion remains unresolved">
-        <div class="verifier-head"><span>VERIFICATION CHANNEL / 01</span><span class="example">STATIC EXAMPLE</span></div>
-        <div class="record-block">
-          <div class="record-key">FOCAL_RECORD</div><div class="record-value">attestation.intoto.jsonl</div>
-          <div class="record-key">NATIVE_VERIFY</div><div class="record-value valid">VALID <span>✓</span></div>
-          <div class="record-key">SUBJECT_DIGEST</div><div class="record-value mono">sha256:7ac4…1e92</div>
-          <div class="record-key">SIGNING_IDENTITY</div><div class="record-value mono">workflow/release.yml</div>
+      <div class="hero-visual">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="scope" aria-hidden="true">
+          <div class="scope-ticks"></div>
+          <div class="scope-wedge"></div>
+          <div class="scope-ring-outer"></div>
+          <div class="scope-ring-mid"></div>
+          <div class="scope-ring-inner"></div>
+          <div class="scope-sweep"></div>
+          <div class="scope-core">G/</div>
         </div>
-        <div class="inference-line"><span></span><b>inference boundary</b><span></span></div>
-        <div class="conclusion-block">
-          <p>CONCLUSION REQUESTED</p>
-          <h2>“Maintainers authorized this release.”</h2>
-          <div class="verdict"><span>VERDICT</span><strong>INSUFFICIENT</strong></div>
-          <p class="verdict-note">Identity use is visible. Intent is not established.</p>
+        <div class="verifier" role="img" aria-label="A valid record passes verification while its attached authorization conclusion remains unresolved">
+          <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span><span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+          <div class="verifier-head"><span>VERIFICATION CHANNEL / 01</span><span class="example">STATIC EXAMPLE</span></div>
+          <div class="record-block">
+            <div class="record-key">FOCAL_RECORD</div><div class="record-value">attestation.intoto.jsonl</div>
+            <div class="record-key">NATIVE_VERIFY</div><div class="record-value valid">VALID <span>✓</span></div>
+            <div class="record-key">SUBJECT_DIGEST</div><div class="record-value mono">sha256:7ac4…1e92</div>
+            <div class="record-key">SIGNING_IDENTITY</div><div class="record-value mono">workflow/release.yml</div>
+          </div>
+          <div class="inference-line"><span></span><b>inference boundary</b><span></span></div>
+          <div class="conclusion-block">
+            <p>CONCLUSION REQUESTED</p>
+            <h2>“Maintainers authorized this release.”</h2>
+            <div class="verdict"><span>VERDICT</span><strong>INSUFFICIENT</strong></div>
+            <p class="verdict-note">Identity use is visible. Intent is not established.</p>
+          </div>
+          <div class="scanner" aria-hidden="true"></div>
         </div>
-        <div class="scanner" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -120,7 +133,7 @@
       <div class="stage-zero"><div><span>R-006 / STAGE 0</span><strong>Declared-configuration safety contract</strong></div><p>Guard behavior only. No guest, fetch, package installation, build or rebuild occurred. Stage 1 remains unauthorized.</p><code>accepted / Stage 0</code></div>
     </section>
 
-    <section class="software section">
+    <section class="software section" id="software">
       <div class="section-head"><div><p class="section-index">06 / SOFTWARE</p><h2>Tools owe the truth<br>about their limits.</h2></div><p>An instrument serves a question. A product owes maintenance to users. Neither becomes a finding by existing.</p></div>
       <div class="software-grid">
         <article><div><span>INSTRUMENT</span><b>ledger</b></div><p>Hash-chains appended records. Cannot detect end truncation or wholesale rewrite without an external anchor.</p></article>

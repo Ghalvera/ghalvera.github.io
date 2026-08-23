@@ -6,15 +6,152 @@
    than the index, so this file mostly buys back reading comfort: a narrower
    measure, more air between blocks, and prose set in the sans face while
    headings and data stay mono.
+
+   RESTORED 2026-08-23. The index's stylesheet was rewritten wholesale when the
+   public surface was rebuilt, and it dropped every shared component these two
+   pages depend on — the masthead, the shell, pills, tables, buttons and code
+   blocks — along with the --crossed-glow token this file reads. Both study
+   pages had been shipping unstyled since then, reachable from the work table
+   on the index. Those components now live here, because after the rebuild they
+   are used by study pages alone and belong with them rather than in the
+   index's stylesheet.
    ========================================================================= */
+
+:root { --crossed-glow: rgba(216, 69, 61, 0.16); }
+
+.shell { max-width: 1240px; margin: 0 auto; padding-inline: max(22px, calc((100vw - 1240px) / 2)); position: relative; z-index: 2; }
+
+/* masthead — sticky rather than fixed. These are long reading pages, and a
+   header that yields as you scroll suits them better than one pinned over the
+   text. Styled to match the index's topbar so the site reads as one surface. */
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  background: color-mix(in srgb, var(--void) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line-2);
+}
+.bar .shell { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; width: 100%; }
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  text-decoration: none;
+  font: 400 0.8rem var(--mono);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+/* Static. A blinking caret is a live-terminal claim on a page that is not a
+   terminal, and the same live-instrument grammar the index just shed. */
+.brand .glyph { color: var(--held); }
+
+.bar nav { display: flex; align-items: center; gap: 24px; }
+.bar nav a {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+.bar nav a::before { content: "/"; color: var(--ink-3); margin-right: 0.34em; }
+.bar nav a:hover { color: var(--held); }
+
+/* pills, tables, buttons and code — the shared components the rebuild lost */
+.pill {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--line-2);
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.pill.ok { color: var(--held); border-color: var(--held-dim); }
+/* S-001 tags itself `pill live`. The first restore covered .pill and .pill.ok
+   and missed this modifier, so the active tag rendered as a generic pill.
+   Found by review 2026-08-23. --pending, not a verdict colour: "active" is a
+   programme state, not a NOT_SEPARABLE result. */
+.pill.live { color: var(--pending); border-color: var(--pending); }
+
+.tbl {
+  border: 1px solid var(--line-2);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--line-3) var(--void);
+}
+table { border-collapse: collapse; width: 100%; min-width: 40rem; font-size: 0.82rem; }
+th, td { text-align: left; padding: 0.72rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th {
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: var(--ground);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--line-2);
+}
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr { transition: background 0.18s var(--ease); }
+tbody tr:hover { background: var(--ground); }
+td { font-variant-numeric: tabular-nums; }
+/* A result that held, and a result that did not. Same two colours as the
+   index, doing the same job. */
+td.g, .block .g { color: var(--held); }
+td.r, .block .r { color: var(--crossed); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-height: 44px;
+  padding: 0 1.05rem;
+  font: 400 0.775rem var(--mono);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--crossed);
+  color: var(--crossed);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.btn:hover { background: var(--crossed); color: var(--void); }
+.btn.q { border-color: var(--line-3); color: var(--ink-2); }
+.btn.q:hover { background: transparent; border-color: var(--ink-2); color: var(--ink); }
+
+pre {
+  margin: 0;
+  background: var(--void);
+  border: 1px solid var(--line);
+  padding: 0.8rem 0.9rem;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.775rem;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
 
 .study { padding-block: clamp(28px, 5vw, 52px) clamp(56px, 8vw, 96px); }
 
-.study .shell { max-width: 54rem; }
+/* Not max-width: 54rem alone. .shell is border-box and inherits padding-inline
+   from the base rule above, sized for a 1240px shell -- at any viewport past
+   ~1050px that padding alone exceeds 54rem, driving content width to zero or
+   negative and wrapping every word onto its own line. This overrides both
+   properties together, the same self-consistent pattern as the base rule, so
+   the two can never fight: max-width: none lets padding alone cap the column,
+   keyed to 54rem instead of 1240px. Found by inspection 2026-08-23, after
+   shipping unrendered for the fourth time in this unit. */
+.study .shell { max-width: none; padding-inline: max(22px, calc((100vw - 54rem) / 2)); }
 
 /* breadcrumb ------------------------------------------------------------- */
 .crumb {
-  font-size: 0.66rem;
+  font-size: 0.775rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -63,12 +200,12 @@
   margin: 0.5rem 0 0;
 }
 .factbar > div { background: var(--ground); padding: 0.65rem 0.85rem; display: flex; flex-direction: column; gap: 0.15rem; }
-.factbar dt { font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-3); margin: 0; }
+.factbar dt { font-size: 0.775rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-3); margin: 0; }
 .factbar dd { margin: 0; font-size: 0.82rem; color: var(--ink); }
 
 .repo { color: var(--ink); }
 .priv {
-  font-size: 0.58rem;
+  font-size: 0.775rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -88,10 +225,12 @@
 
 .block h2 {
   margin: 0;
-  font-size: 0.74rem;
+  font-size: 0.775rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--crossed);
+  /* Steel: a section title is chrome. Red here would say the section itself
+     did not hold. Raised by rereview 2026-08-23. */
+  color: var(--held);
   font-weight: 400;
 }
 
@@ -130,7 +269,7 @@ pre .ok { color: var(--held); }
 
 .corrections { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
 .corrections li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0.9rem; align-items: start; }
-.corrections .cn { font-size: 0.7rem; color: var(--crossed); padding-top: 0.15rem; }
+.corrections .cn { font-size: 0.775rem; color: var(--crossed); padding-top: 0.15rem; }
 .corrections div { font-family: var(--sans); font-size: 0.94rem; line-height: 1.68; color: var(--ink-2); max-width: 64ch; }
 .corrections strong { color: var(--ink); font-weight: 500; display: block; }
 
