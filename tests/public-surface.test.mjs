@@ -41,6 +41,13 @@ test("keeps the flagship visual explicitly illustrative", () => {
   assert.match(flagship, /boundary-breathe/);
 });
 
+test("treats desktop as the flagship composition", () => {
+  assert.match(flagship, /@media\(min-width:1180px\)/);
+  assert.match(flagship, /grid-template-columns:minmax\(390px,\.82fr\) minmax\(620px,1\.18fr\)/);
+  assert.match(flagship, /\.evidence-visual\{height:clamp\(650px,72vh,730px\);max-width:760px/);
+  assert.match(flagship, /\.section\{padding-top:clamp\(118px,9vw,158px\);padding-bottom:clamp\(118px,9vw,158px\)\}/);
+});
+
 test("publishes the full presentation without JavaScript", () => {
   assert.match(home, /<link rel="stylesheet" href="styles\.css"><link rel="stylesheet" href="flagship\.css">/);
   assert.doesNotMatch(siteJs, /createElement\(["']link["']\)|flagship\.css|v2\.css/);
