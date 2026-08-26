@@ -1,5 +1,3 @@
-const flagship = document.createElement("link"); flagship.rel = "stylesheet"; flagship.href = "flagship.css"; document.head.appendChild(flagship);
-
 const header = document.querySelector("[data-header]");
 const menu = document.querySelector("[data-menu]");
 const navigation = document.querySelector("[data-nav]");
