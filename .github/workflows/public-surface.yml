@@ -11,6 +11,7 @@ on:
       - "v2.css"
       - "studies/**"
       - "sitemap.xml"
+      - "surface-lock.json"
       - "tests/**"
       - ".github/workflows/public-surface.yml"
   pull_request:
@@ -22,6 +23,7 @@ on:
       - "v2.css"
       - "studies/**"
       - "sitemap.xml"
+      - "surface-lock.json"
       - "tests/**"
       - ".github/workflows/public-surface.yml"
 
