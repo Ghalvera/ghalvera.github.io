@@ -29,6 +29,17 @@ test("keeps the flagship visual explicitly illustrative", () => {
   assert.match(flagship, /boundary-breathe/);
 });
 
+test("publishes the full presentation without JavaScript", () => {
+  assert.match(home, /<link rel="stylesheet" href="styles\.css"><link rel="stylesheet" href="flagship\.css">/);
+  assert.doesNotMatch(siteJs, /createElement\(["']link["']\)|flagship\.css|v2\.css/);
+});
+
+test("publishes complete organization and sharing metadata", () => {
+  for (const property of ["og:title", "og:description", "og:image", "og:image:width", "og:image:height"]) assert.match(home, new RegExp(`property="${property}"`));
+  assert.match(home, /"@type":"ResearchOrganization"/);
+  assert.match(home, /name="twitter:card" content="summary_large_image"/);
+});
+
 test("publishes a deliberate path into the research corpus", () => {
   assert.match(siteJs, /Research archive/);
   assert.match(corpus, /Evidence,<br><span>under pressure\.<\/span>/);
