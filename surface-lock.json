@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "locked": {
+    "index.html": "cc2c83b8a65d5297ed4d1219a4d61ba69f52ede9",
+    "flagship.css": "0c8cef098a08120729261db54e46b112fc4bf520",
+    "site.js": "24b2f025500cc34a460f81565e2c38024be4343f",
+    "sitemap.xml": "8c29818d18c035d4d34b4527ae193829dab15804",
+    "studies/index.html": "cbcc694f8e6e33f23e620e4722dfdaaaf56f11f0",
+    "studies/record.css": "b86b87d7d1752c9ee81f4b2c65861b7cc2b370c7",
+    "studies/study.css": "9f64ce62b22a64f761b9e9ce3b5c2eb7722691c4",
+    "studies/audit-retrieval.html": "4a32fbf27341e3d20faa0adce210067fc76df4a9",
+    "studies/decision-invariance.html": "387b9e178b2b37d6330cb9374f1b6a6be5ca26c1"
+  },
+  "unlocked": {
+    "styles.css": "historical base-layer drift; flagship and publication surfaces are parity-locked while this file is consolidated"
+  }
+}
