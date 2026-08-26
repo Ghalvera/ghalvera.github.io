@@ -1,0 +1,44 @@
+name: Public surface guardrails
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "site.js"
+      - "styles.css"
+      - "flagship.css"
+      - "v2.css"
+      - "studies/**"
+      - "sitemap.xml"
+      - "tests/**"
+      - ".github/workflows/public-surface.yml"
+  pull_request:
+    paths:
+      - "index.html"
+      - "site.js"
+      - "styles.css"
+      - "flagship.css"
+      - "v2.css"
+      - "studies/**"
+      - "sitemap.xml"
+      - "tests/**"
+      - ".github/workflows/public-surface.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  published-contract:
+    name: Published contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Run public-surface tests
+        run: node --test tests/public-surface.test.mjs
