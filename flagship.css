@@ -8,6 +8,15 @@
 .archive-bridge{position:relative;z-index:2;margin-top:22px;padding-top:18px;border-top:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between;gap:20px}.archive-bridge>span{font-size:.56rem;letter-spacing:.18em;color:var(--ink-3)}.archive-bridge a{font:400 .72rem var(--mono);letter-spacing:.12em;color:var(--held);text-decoration:none;text-transform:uppercase}.archive-bridge a b{font-weight:400;color:var(--crossed);margin-left:8px}.archive-bridge a:hover{color:var(--held-lit)}
 .thesis::before,.dimensions::before,.software::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 85% 30%,rgba(127,163,179,.035),transparent 28%)}
 .claim-rule{box-shadow:0 25px 70px rgba(0,0,0,.28)}
+/* The core method reads as one apparatus rather than four unrelated panels. */
+.evaluation,.dimensions,.loop-section,.work{--method-rail-x:calc(var(--gutter) + 7px)}
+.evaluation::before,.dimensions::after,.loop-section::before,.work::after{content:"";position:absolute;left:var(--method-rail-x);top:0;bottom:0;width:1px;pointer-events:none;background:linear-gradient(180deg,transparent 0,var(--held-dim) 12%,var(--held-dim) 88%,transparent 100%);opacity:.32}
+.evaluation .section-index,.dimensions .section-index,.loop-section .section-index,.work .section-index{position:relative;padding-left:24px}
+.evaluation .section-index::before,.dimensions .section-index::before,.loop-section .section-index::before,.work .section-index::before{content:"";position:absolute;left:3px;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border:1px solid var(--held-dim);background:var(--void);box-shadow:0 0 0 5px rgba(127,163,179,.025)}
+.dimensions .section-index::before{background:var(--ground)}
+.loop-section .section-index::before{background:var(--void)}
+.work .section-index::before{background:var(--void)}
+.evaluation .section-index::after,.dimensions .section-index::after,.work .section-index::after{margin-left:4px}
 .tuple-layout{position:relative}.tuple-layout::before{content:"EVALUATION / FROZEN BEFORE COLLECTION";position:absolute;right:0;top:-30px;font-size:.52rem;letter-spacing:.15em;color:var(--ink-3)}
 .field-console{box-shadow:0 30px 70px rgba(0,0,0,.35)}
 .dimension-grid article{position:relative;overflow:hidden}.dimension-grid article::after{content:"";position:absolute;width:110px;height:110px;right:-42px;top:-42px;border:1px solid rgba(127,163,179,.08);border-radius:50%;box-shadow:0 0 0 28px rgba(127,163,179,.018),0 0 0 56px rgba(127,163,179,.01)}
@@ -17,12 +26,13 @@
 .frontier-list>div{transition:padding-left .25s var(--ease),background .25s var(--ease)}.frontier-list>div:hover{padding-left:12px;background:rgba(127,163,179,.02)}
 .closing{min-height:74svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}.closing::before{content:"";position:absolute;width:min(62vw,760px);aspect-ratio:1;right:-12%;top:50%;transform:translateY(-50%);border:1px solid rgba(127,163,179,.06);border-radius:50%;box-shadow:0 0 0 90px rgba(127,163,179,.014),0 0 0 180px rgba(127,163,179,.009);pointer-events:none}
 @keyframes boundary-breathe{50%{box-shadow:0 0 58px rgba(216,69,61,.16)}}
-@media(max-width:1000px){.hero-copy::before{display:none}.hero::after{display:none}}
+@media(max-width:1000px){.hero-copy::before{display:none}.hero::after{display:none}.evaluation,.dimensions,.loop-section,.work{--method-rail-x:calc(var(--gutter) + 5px)}}
 @media(max-width:680px){
 .hero{padding-top:112px;padding-bottom:46px;gap:30px}.hero h1{font-size:clamp(2.9rem,13.2vw,4.2rem);line-height:1.01;margin-top:26px}.counterline{font-size:clamp(1.15rem,5.4vw,1.55rem);margin-bottom:22px}.lede{font-size:.98rem;margin-bottom:22px}.hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}.hero-actions .button{width:auto;min-height:42px;padding:0 10px;font-size:.62rem;letter-spacing:.09em}.maturity{margin:0;font-size:.68rem;line-height:1.45;gap:9px}.maturity-led{width:7px;height:7px}
 .evidence-visual{height:548px;margin:-2px -4px 0;box-shadow:0 30px 70px rgba(0,0,0,.7)}.evidence-caption{font-size:.56rem;padding-inline:12px}.evidence-caption span:last-child{font-size:0}.evidence-caption span:last-child::after{content:"INSPECT";font-size:.56rem}.node{width:102px}.node small{font-size:.54rem}.boundary-node{height:154px}.evidence-verdict{font-size:.55rem;padding-inline:11px;gap:8px}
 .observation::before{font-size:18rem;top:.1em;right:-.18em}.observation-head{margin-bottom:34px}.specimen-command,.specimen-truth{padding:24px}.specimen-command code{margin-top:38px}.specimen-result b,.specimen-truth b{font-size:4.4rem}.archive-bridge{align-items:flex-start;flex-direction:column;gap:8px}.archive-bridge a{font-size:.68rem}
 .section{padding-top:86px;padding-bottom:86px}.section-head{margin-bottom:38px}.claim-rule{margin-top:48px;padding:18px;justify-content:flex-start}.claim-rule span{font-size:.64rem}
+.evaluation,.dimensions,.loop-section,.work{--method-rail-x:18px}.evaluation::before,.dimensions::after,.loop-section::before,.work::after{opacity:.22}.evaluation .section-index,.dimensions .section-index,.loop-section .section-index,.work .section-index{padding-left:18px}.evaluation .section-index::before,.dimensions .section-index::before,.loop-section .section-index::before,.work .section-index::before{left:0;width:7px;height:7px}
 .tuple-layout::before{display:none}.field-console{min-height:360px}
 .dimension-grid article{min-height:245px}
 .work-table{border:0;box-shadow:none;display:grid;gap:10px}.work-table::before{display:none}.work-row.header{display:none}.work-row{min-width:0!important;display:grid!important;grid-template-columns:92px 1fr!important;gap:8px 16px!important;padding:18px!important;border:1px solid var(--line-2)!important;background:var(--ground)}.work-row>span:nth-child(1){grid-row:1/3;color:var(--held)!important}.work-row>span:nth-child(2){color:var(--ink)!important}.work-row>span:nth-child(3){grid-column:2;color:var(--ink-3)!important;font-size:.68rem}.work-row>strong{grid-column:2;font-size:.62rem}.work{overflow:visible}.work-table{overflow:visible!important}
