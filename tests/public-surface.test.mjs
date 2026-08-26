@@ -13,6 +13,7 @@ const corpus = read("studies/index.html");
 const r002 = read("studies/audit-retrieval.html");
 const s001 = read("studies/decision-invariance.html");
 const studyCss = read("studies/study.css");
+const continuityCss = read("studies/continuity.css");
 const sitemap = read("sitemap.xml");
 const surfaceLock = JSON.parse(read("surface-lock.json"));
 
@@ -58,6 +59,13 @@ test("publishes a deliberate path into the research corpus", () => {
   assert.match(corpus, /href="audit-retrieval\.html"/);
   assert.match(corpus, /href="decision-invariance\.html"/);
   assert.doesNotMatch(corpus, /VERIFIED<\/span><b>03|INFERRED<\/span><b[^>]*>01/);
+});
+
+test("keeps archive and publications inside one visual identity", () => {
+  for (const page of [corpus, r002, s001]) assert.match(page, /href="continuity\.css"/);
+  assert.match(continuityCss, /\.brand::before\{content:"G\/"/);
+  assert.match(continuityCss, /surface-in/);
+  assert.match(continuityCss, /prefers-reduced-motion:reduce/);
 });
 
 test("publishes distinct evidence states for R-002 and S-001", () => {
