@@ -68,6 +68,15 @@ test("keeps archive and publications inside one visual identity", () => {
   assert.match(continuityCss, /prefers-reduced-motion:reduce/);
 });
 
+test("keeps publication discovery attached to the corpus", () => {
+  assert.match(continuityCss, /CORPUS \/ CONTINUE/);
+  assert.match(continuityCss, /RESEARCH INDEX/);
+  assert.match(continuityCss, /ADJACENT \/ S-001/);
+  assert.match(continuityCss, /ADJACENT \/ R-002/);
+  assert.match(r002, /href="decision-invariance\.html">S-001 →<\/a>/);
+  assert.match(s001, /href="audit-retrieval\.html">R-002 →<\/a>/);
+});
+
 test("publishes distinct evidence states for R-002 and S-001", () => {
   assert.match(r002, /class="state-held">accepted<\/b>/);
   assert.match(r002, /RETRIEVAL <span>≠<\/span> ABSENCE/);
