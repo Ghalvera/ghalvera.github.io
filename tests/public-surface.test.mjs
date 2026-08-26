@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+const bytes = (path) => readFileSync(new URL(`../${path}`, import.meta.url));
+const gitBlobSha = (buffer) => createHash("sha1").update(`blob ${buffer.length}\0`).update(buffer).digest("hex");
 const home = read("index.html");
 const siteJs = read("site.js");
 const flagship = read("flagship.css");
@@ -11,8 +14,16 @@ const r002 = read("studies/audit-retrieval.html");
 const s001 = read("studies/decision-invariance.html");
 const studyCss = read("studies/study.css");
 const sitemap = read("sitemap.xml");
+const surfaceLock = JSON.parse(read("surface-lock.json"));
 
 const hero = home.match(/<section class="hero[^>]*>[\s\S]*?<\/section>/)?.[0] ?? "";
+
+test("matches the canonical publication lock", () => {
+  for (const [path, expected] of Object.entries(surfaceLock.locked)) {
+    assert.equal(gitBlobSha(bytes(path)), expected, `${path} drifted from the canonical publication surface`);
+  }
+  assert.deepEqual(Object.keys(surfaceLock.unlocked), ["styles.css"]);
+});
 
 test("publishes the bounded flagship thesis", () => {
   assert.match(home, /The record<br>can be <em>true\.<\/em>/);
