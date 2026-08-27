@@ -1,18 +1,23 @@
 {
-  "version": 1,
+  "version": 2,
   "locked": {
-    "index.html": "cc2c83b8a65d5297ed4d1219a4d61ba69f52ede9",
-    "flagship.css": "04d6526452cc67b076ace9a449a0c8ec6b973f8c",
-    "site.js": "24b2f025500cc34a460f81565e2c38024be4343f",
+    "assets/fonts/dm-mono-latin.woff2": "787b808fdc7b81d0271e4f277c381ec79da6b584",
+    "assets/fonts/inter-latin.woff2": "91dc3e8529921cabc74fb1dacf5253260b9c8cca",
+    "assets/fonts/newsreader-display-300.woff2": "de3382a7b30a3d8f726318dbe6156b3ba79d85ba",
+    "assets/fonts/newsreader-text-300.woff2": "81b6f7891bf13b6e3e4c00f2c79bf53c83f08fab",
+    "favicon.svg": "6f60322f994ecd97c7997f619ef2dc887a25af8c",
+    "index.html": "25b7ede491b3e3a3b7e20ee324b4718289fcd145",
+    "og.png": "b3a86d5eba49342c19c3b65a9713326f42603261",
+    "robots.txt": "f94b967b7a757068ef111f65458222291d216e52",
+    "site.js": "3a4647d3663c73d682c5ecfc31dba7a577521894",
     "sitemap.xml": "8c29818d18c035d4d34b4527ae193829dab15804",
-    "studies/index.html": "fddf0832daa0299b58abf76110bd21f6fe88ae07",
-    "studies/record.css": "b86b87d7d1752c9ee81f4b2c65861b7cc2b370c7",
-    "studies/study.css": "9f64ce62b22a64f761b9e9ce3b5c2eb7722691c4",
-    "studies/continuity.css": "4089470719cc7068e6dab9f39776edc23a6b50b7",
-    "studies/audit-retrieval.html": "6d50c33157fd8b5039ba9cfda62231d9c580f087",
-    "studies/decision-invariance.html": "515d4779e540eda0eea53a3393027ec4382e8815"
+    "styles.css": "9f13da0deeb804563f50844fe0f0042c83fd225b",
+    "studies/audit-retrieval.html": "a85b85bcaa49aefffd9684710e3c59eaf19db0c7",
+    "studies/continuity.css": "5dc7ed908466cd13d3f1badfaa195a42deb3bf82",
+    "studies/decision-invariance.html": "bcf180ac2bcb8e32e37f642e0b8e0dff96eaeb34",
+    "studies/index.html": "6031f1ee6201de8f6a6517d597be220b3a343b4c",
+    "studies/record.css": "8b856484cd63e24ed3601672fd1eb35efa6ae7a4",
+    "studies/study.css": "74abb8067b984fc21a28726e0d66609ffde24988"
   },
-  "unlocked": {
-    "styles.css": "deployed reviewed base layer is authoritative until promoted back into canonical source"
-  }
+  "unlocked": {}
 }

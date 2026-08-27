@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-labelledby="gha-title gha-desc">
   <title id="gha-title">Ghalvera</title>
-  <desc id="gha-desc">A guilloche rosette turned in steel — the engine-turned ornament used to authenticate banknotes and certificates — with a wedge cut clean out of it and the two cut faces marked in red. The broken containment ring and its bar conceal a G.</desc>
+  <desc id="gha-desc">A guilloche rosette turned in steel — the engine-turned ornament used to authenticate banknotes and certificates — with a wedge cut clean out of it and the two cut faces marked in graphite. The broken containment ring and its bar conceal a G.</desc>
   <defs>
     <linearGradient id="steel-rose" x1="10" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#3f545e"/>
-      <stop offset="0.26" stop-color="#b9d2dd"/>
-      <stop offset="0.5" stop-color="#617985"/>
-      <stop offset="0.76" stop-color="#d3e6ee"/>
-      <stop offset="1" stop-color="#50686f"/>
+      <stop offset="0" stop-color="#5b5c60"/>
+      <stop offset="0.26" stop-color="#b9babc"/>
+      <stop offset="0.5" stop-color="#7a7b80"/>
+      <stop offset="0.76" stop-color="#d7d8da"/>
+      <stop offset="1" stop-color="#707176"/>
     </linearGradient>
     <linearGradient id="steel-ring" x1="52" y1="10" x2="14" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#e2f0f6"/>
-      <stop offset="0.4" stop-color="#6d8896"/>
-      <stop offset="0.72" stop-color="#cfe3ec"/>
-      <stop offset="1" stop-color="#4a626d"/>
+      <stop offset="0" stop-color="#e4e4e3"/>
+      <stop offset="0.4" stop-color="#85868a"/>
+      <stop offset="0.72" stop-color="#d2d3d5"/>
+      <stop offset="1" stop-color="#68696d"/>
     </linearGradient>
   </defs>
 
@@ -28,8 +28,8 @@
     </g>
 
     <g data-layer="cut-faces">
-            <path d="M36.97 28.64 L50.24 19.7" stroke="#d8453d" stroke-width="0.5" stroke-opacity="0.7" stroke-linecap="round"/>
-      <path d="M38 32 L56.6 32" stroke="#d8453d" stroke-width="1.0" stroke-opacity="0.88" stroke-linecap="round"/>
+            <path d="M36.97 28.64 L50.24 19.7" stroke="#b9babc" stroke-width="0.5" stroke-opacity="0.7" stroke-linecap="round"/>
+      <path d="M38 32 L56.6 32" stroke="#b9babc" stroke-width="1.0" stroke-opacity="0.88" stroke-linecap="round"/>
     </g>
 
     <g data-layer="containment">
