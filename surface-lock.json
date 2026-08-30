@@ -1,6 +1,9 @@
 {
   "version": 2,
   "locked": {
+    "assets/fonts/OFL-DM-Mono.txt": "a082ba3b13a51ec87074c25b622d4ae533796476",
+    "assets/fonts/OFL-Inter.txt": "909a6bf9cfb4849d4468a723cc16ffb7a183bd09",
+    "assets/fonts/OFL-Newsreader.txt": "4c581f888ab66a0375e9c3f4c78612e45769ce03",
     "assets/fonts/dm-mono-latin.woff2": "787b808fdc7b81d0271e4f277c381ec79da6b584",
     "assets/fonts/inter-latin.woff2": "91dc3e8529921cabc74fb1dacf5253260b9c8cca",
     "assets/fonts/newsreader-display-300.woff2": "de3382a7b30a3d8f726318dbe6156b3ba79d85ba",
@@ -19,5 +22,7 @@
     "studies/record.css": "8b856484cd63e24ed3601672fd1eb35efa6ae7a4",
     "studies/study.css": "74abb8067b984fc21a28726e0d66609ffde24988"
   },
-  "unlocked": {}
+  "unlocked": {
+    "surface-lock.json": "Self-referential manifest; payload membership is guarded but its bytes cannot hash themselves."
+  }
 }
