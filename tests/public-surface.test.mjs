@@ -20,6 +20,9 @@ const sitemap = read("../sitemap.xml");
 const surfaceLock = JSON.parse(read("../surface-lock.json"));
 
 const expectedLockedPaths = [
+  "assets/fonts/OFL-DM-Mono.txt",
+  "assets/fonts/OFL-Inter.txt",
+  "assets/fonts/OFL-Newsreader.txt",
   "assets/fonts/dm-mono-latin.woff2",
   "assets/fonts/inter-latin.woff2",
   "assets/fonts/newsreader-display-300.woff2",
@@ -78,12 +81,14 @@ test("walks nested and grouped CSS rules used by the no-JavaScript guard", () =>
   assert.deepEqual(splitSelectors(".placeholder,.site-header nav"), [".placeholder", ".site-header nav"]);
 });
 
-test("locks the complete canonical publication payload", () => {
+test("locks every byte-bearing public payload file and documents the self-lock exception", () => {
   assert.deepEqual(Object.keys(surfaceLock.locked).sort(), expectedLockedPaths);
   for (const [path, expected] of Object.entries(surfaceLock.locked)) {
     assert.equal(gitBlobSha(bytes(`../${path}`)), expected, `${path} changed without refreshing the publication lock`);
   }
-  assert.deepEqual(surfaceLock.unlocked, {});
+  assert.deepEqual(surfaceLock.unlocked, {
+    "surface-lock.json": "Self-referential manifest; payload membership is guarded but its bytes cannot hash themselves.",
+  });
 });
 
 test("uses one canonical flagship stylesheet", () => {
